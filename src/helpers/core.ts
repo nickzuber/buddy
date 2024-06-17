@@ -67,8 +67,8 @@ export function sumOfEntries(entries: Array<Entry>): number {
 export function makeEntry(cost: number, memo?: string): Entry {
   return {
     id: crypto.randomUUID(),
-    date: toFormattedDateTime(DateTime.now()),
-    // date: toFormattedDateTime(DateTime.now().minus(1000 * 60 * 60 * 24 * 80)),
+    // date: toFormattedDateTime(DateTime.now()),
+    date: toFormattedDateTime(DateTime.now().minus(1000 * 60 * 60 * 24 * 80)),
     cost,
     memo,
   }
@@ -94,4 +94,16 @@ export function fromFormattedDateTime(
   formattedDateTime: FormattedDateTime
 ): DateTime {
   return DateTime.fromISO(formattedDateTime)
+}
+
+export function isEntryWithinCurrentCycle(entry: Entry): boolean {
+  const dateTs = getMonthYearTimestampFromFormatted(entry.date)
+  const curDateTs = getMonthYearTimestamp(DateTime.now())
+  return dateTs === curDateTs
+}
+
+export function areAllEntriesWithinCurrentCycle(
+  entries: Array<Entry>
+): boolean {
+  return entries.every((entry) => isEntryWithinCurrentCycle(entry))
 }

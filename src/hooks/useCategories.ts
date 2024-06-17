@@ -2,16 +2,27 @@ import { DateTime } from "luxon"
 import {
   getMonthYearTimestamp,
   getMonthYearTimestampFromFormatted,
+  sumOfEntries,
 } from "../helpers/core"
 import {
   Category,
   Entry,
   HistoryLedger,
+  MonthEndingCategories,
+  MonthEndingValue,
   MonthYearTimestamp,
   PersistedState,
   RunningMonthCategories,
 } from "../types/core"
 import { createState } from "./persisted"
+
+type NewHistory = Record<
+  Category,
+  {
+    entries: Array<Entry>
+    max: number
+  }
+>
 
 const useCategoriesState = createState<RunningMonthCategories>(
   PersistedState.RunningMonthCategories
@@ -125,18 +136,24 @@ export function useCategories() {
     // Entry IDs to delete after processing.
     const processedEntryIds = new Set<string>()
 
-    // MonthYearTimestamp -> Category -> Entry[]
-    // MonthYearTimestamp -> Category -> MonthEndingValue
-
+    // Algorithm:
+    //
+    // go through every entry in every category
+    //  - look for any where date is not in current month
+    //    - remove from categories state
+    //  - store those in month-keyed map
+    //  - create MonthEndingValue from each map
+    //  - add / merge into HistoryLedger
     const newMonthEndingCategories: Record<
       MonthYearTimestamp,
-      Partial<Record<Category, Array<Entry>>>
+      Partial<NewHistory>
     > = {}
 
     const currentDate = DateTime.now()
     const currentMonthYearTimestamp = getMonthYearTimestamp(currentDate)
 
     for (const categoryKey of categoryKeys) {
+      const maxForCategory = categories[categoryKey].max
       const entriesForCategory = categories[categoryKey].entries
       for (const entry of entriesForCategory) {
         const monthYearTimestamp = getMonthYearTimestampFromFormatted(
@@ -156,47 +173,81 @@ export function useCategories() {
 
         // Add entry to category for that month.
         const categoryToEntries = newMonthEndingCategories[monthYearTimestamp]
-        const processedEntries = categoryToEntries[categoryKey]
+        const processedEntries = categoryToEntries[categoryKey]?.entries
         if (!processedEntries) {
-          categoryToEntries[categoryKey] = [entry]
+          categoryToEntries[categoryKey] = {
+            entries: [entry],
+            max: maxForCategory,
+          }
         } else {
-          categoryToEntries[categoryKey] = [...processedEntries, entry]
+          categoryToEntries[categoryKey] = {
+            entries: [...processedEntries, entry],
+            max: maxForCategory,
+          }
         }
       }
     }
 
-    console.info(newMonthEndingCategories)
+    // Merge into history.
+    const monthYearTimestamps = Object.keys(
+      newMonthEndingCategories
+    ) as Array<MonthYearTimestamp>
 
-    // For each category, find all entries that are not in this month
-    //
+    // Will replace the current history instance.
+    const updatedHistoryLedger = { ...history }
 
-    // go through every entry in every category
-    //  - look for any where date is not in current month
-    //    - remove from categories state
-    //  - store those in month-keyed map
-    //  - create MonthEndingValue from each map
-    //  - add / merge into HistoryLedger
-    //
-    //
-    //
-    // OLD
-    // // record to history ledger
-    // const historyTimestamp = makeMonthYearTimestamp()
-    // // reset entries
-    // const categoryKeys = Object.keys(categories)
-    // setCategories(
-    //   categoryKeys.reduce((map, key) => {
-    //     const categoryKey = key as Category
-    //     const category = categories[categoryKey]
-    //     return {
-    //       ...map,
-    //       [categoryKey]: {
-    //         ...category,
-    //         entries: [],
-    //       },
-    //     }
-    //   }, categories)
-    // )
+    for (const monthYearTimestamp of monthYearTimestamps) {
+      const newHistory = newMonthEndingCategories[monthYearTimestamp]
+      const existingHistory = updatedHistoryLedger[monthYearTimestamp]
+
+      // There should never be an existing history entry for unprocessed entries.
+      if (existingHistory) {
+        console.error(
+          "Somehow had a partially unprocessed category",
+          monthYearTimestamp,
+          JSON.stringify(existingHistory, null, 2)
+        )
+        continue
+      }
+
+      // Create history entry and mutate obj.
+      const someMonthEndingCategories =
+        newHistoryToMonthEndingCategories(newHistory)
+      updatedHistoryLedger[monthYearTimestamp] = someMonthEndingCategories
+    }
+
+    const updatedCategories = removeEntriesFromCategories(
+      categories,
+      processedEntryIds
+    )
+
+    // Delete all processed history items.
+    setCategories(updatedCategories)
+
+    // Update the history to latest version.
+    setHistory(updatedHistoryLedger)
+  }
+
+  function removeEntriesFromCategories(
+    categories: RunningMonthCategories,
+    idsToRemove: Set<string>
+  ): RunningMonthCategories {
+    const keys = Object.keys(categories) as Array<Category>
+    const updatedCategories = {} as Partial<RunningMonthCategories>
+    for (const category of keys) {
+      updatedCategories[category] = {
+        max: categories[category].max,
+        entries: categories[category].entries.filter(
+          (entry) => !idsToRemove.has(entry.id)
+        ),
+      }
+    }
+
+    return updatedCategories as RunningMonthCategories
+  }
+
+  function clearHistory(): void {
+    setHistory(initialHistory)
   }
 
   return {
@@ -211,5 +262,33 @@ export function useCategories() {
     // History
     history,
     completeAndRecordCateoriesForPastMonths,
+    clearHistory,
   }
+}
+
+function newHistoryToMonthEndingCategories(
+  newHistory: Partial<NewHistory>
+): Partial<MonthEndingCategories> {
+  const mec: Partial<MonthEndingCategories> = {}
+
+  const categories = Object.keys(newHistory) as Array<Category>
+  for (const category of categories) {
+    const vals = newHistory[category]
+
+    // ts wants this, prob don't need it
+    if (!vals) {
+      continue
+    }
+
+    const { entries, max } = vals
+    const sum = sumOfEntries(entries)
+    const endingVal: MonthEndingValue = {
+      ending: sum,
+      max,
+    }
+
+    mec[category] = endingVal
+  }
+
+  return mec
 }

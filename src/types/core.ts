@@ -36,6 +36,9 @@ export type MonthEndingValue = {
 
 export type MonthEndingCategories = Record<Category, MonthEndingValue>
 
-export type HistoryLedger = Record<MonthYearTimestamp, MonthEndingCategories>
+export type HistoryLedger = Record<
+  MonthYearTimestamp,
+  Partial<MonthEndingCategories>
+>
 
-export type MonthYearTimestamp = string
+export type MonthYearTimestamp = string & { _opaque: true }

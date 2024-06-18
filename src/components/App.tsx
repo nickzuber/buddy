@@ -85,7 +85,7 @@ function App() {
 
     setTimeout(() => {
       elem.style.transform = ""
-      elem.style.transitionDuration = "1800ms"
+      elem.style.transitionDuration = "1400ms"
     }, 100)
   }
 
@@ -111,7 +111,7 @@ function App() {
           const { rx, ry, angle } = getTiltCoordinates(event)
 
           // Apply the tilt with an animation.
-          elem.style.transitionDuration = "300ms"
+          elem.style.transitionDuration = "200ms"
           elem.style.transform = `perspective(${PERSPECTIVE_PX}) rotate3d(${-ry}, ${rx}, 0, ${angle}deg)`
 
           // Increment the cycle counter.

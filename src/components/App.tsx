@@ -2,7 +2,9 @@ import { DateTime } from "luxon"
 import { useRef, useState } from "react"
 
 // Magic perspective number.
-const PERSPECTIVE_PX = "400px"
+const PERSPECTIVE_PX = 400
+const SCALE_RATIO = "0.95"
+const ANIMATION_SPEED = 230
 
 function App() {
   // return <DebugSkeleton />
@@ -86,6 +88,7 @@ function App() {
     setTimeout(() => {
       elem.style.transform = ""
       elem.style.transitionDuration = "1400ms"
+      elem.style.opacity = "1"
     }, 100)
   }
 
@@ -111,8 +114,9 @@ function App() {
           const { rx, ry, angle } = getTiltCoordinates(event)
 
           // Apply the tilt with an animation.
-          elem.style.transitionDuration = "200ms"
-          elem.style.transform = `perspective(${PERSPECTIVE_PX}) rotate3d(${-ry}, ${rx}, 0, ${angle}deg)`
+          elem.style.transitionDuration = `${ANIMATION_SPEED}ms`
+          elem.style.transform = `scale(${SCALE_RATIO}) perspective(${PERSPECTIVE_PX}px) rotate3d(${-ry}, ${rx}, 0, ${angle}deg)`
+          elem.style.opacity = "0.95"
 
           // Increment the cycle counter.
           animationCycleCounterRef.current =
@@ -133,12 +137,12 @@ function App() {
           // Calculate the active animation delay.
           const animationDelay = Math.max(
             0,
-            300 - ++animationCycleCounterRef.current * 50
+            ANIMATION_SPEED - ++animationCycleCounterRef.current * 50
           )
 
           // Apply the tilt with an animation.
           elem.style.transitionDuration = `${animationDelay}ms`
-          elem.style.transform = `perspective(${PERSPECTIVE_PX}) rotate3d(${-ry}, ${rx}, 0, ${angle}deg)`
+          elem.style.transform = `scale(${SCALE_RATIO}) perspective(${PERSPECTIVE_PX}px) rotate3d(${-ry}, ${rx}, 0, ${angle}deg)`
         }}
         onTouchEnd={resetStyles}
         onTouchCancel={resetStyles}

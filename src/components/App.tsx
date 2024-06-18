@@ -1,10 +1,14 @@
 import { DateTime } from "luxon"
-import { useState } from "react"
+import { useRef, useState } from "react"
+
+// Magic perspective number.
+const PERSPECTIVE_PX = "400px"
 
 function App() {
   // return <DebugSkeleton />
 
   const [cost, setCost] = useState(0)
+  const animationCycleCounterRef = useRef(0)
   const numChars = cost.toString().length
 
   function focusInput() {
@@ -16,11 +20,68 @@ function App() {
     elem.focus()
   }
 
+  function getTiltCoordinates(event: React.TouchEvent<HTMLDivElement>) {
+    const elem = document.querySelector(
+      "#number-container"
+    ) as HTMLInputElement | null
+    if (!elem) {
+      return {
+        rx: 0,
+        ry: 0,
+        angle: 0,
+      }
+    }
+
+    // Get coordinates of press on screen.
+    const { clientX, clientY } = event.touches[0]
+    const x = Math.max(0, clientX - elem.offsetLeft)
+    const y = Math.max(0, clientY - elem.offsetTop)
+
+    // Find midpoints of clickable node.
+    const midWidth = elem.offsetWidth / 2
+    const midHeight = elem.offsetHeight / 2
+
+    // Create a cartesien grid using the midpoint of that node.
+    const dx = x - midWidth
+    const dy = y - midHeight
+
+    // Normalize the grid points.
+    const rx = dx / midWidth
+    const ry = dy / midHeight
+
+    // Construct "force" of the press (how much it pushes into the screen).
+    // Always divide the smaller r value.
+    // Note entirely sure why this works to be completely honest.
+    let force =
+      Math.abs(rx) > Math.abs(ry)
+        ? Math.abs(rx) + Math.abs(ry) / 2
+        : Math.abs(rx) / 2 + Math.abs(ry)
+
+    // NOTE: If you change this, you must tweak the max force value.
+    const thrust = 10
+
+    // If force gets too strong, take the difference and flatten the curve.
+    const maxForceValue = 3
+    if (force > maxForceValue) {
+      const overflow = force - maxForceValue
+      force = maxForceValue + Math.log10((overflow + 1) * 2)
+    }
+
+    return {
+      rx,
+      ry,
+      angle: force * thrust,
+    }
+  }
+
   function resetStyles() {
     const elem = document.querySelector(
       "#number-container"
     ) as HTMLInputElement | null
     if (!elem) return
+
+    // Reset the cycle counter since we've ended an animation.
+    animationCycleCounterRef.current = 0
 
     setTimeout(() => {
       elem.style.transform = ""
@@ -38,38 +99,46 @@ function App() {
         }}
         onClick={focusInput}
         onTouchStart={(event) => {
-          focusInput()
-
           const elem = document.querySelector(
             "#number-container"
           ) as HTMLInputElement | null
           if (!elem) return
 
-          // Get coordinates of press on screen.
-          const { clientX, clientY } = event.touches[0]
-          const x = Math.max(0, clientX - elem.offsetLeft)
-          const y = Math.max(0, clientY - elem.offsetTop)
+          // Focus on touch start to get instant drawer pull.
+          focusInput()
 
-          // Find midpoints of clickable node.
-          const midWidth = elem.offsetWidth / 2
-          const midHeight = elem.offsetHeight / 2
+          // Calculate the tilt.
+          const { rx, ry, angle } = getTiltCoordinates(event)
 
-          // Create a cartesien grid using the midpoint of that node.
-          const dx = x - midWidth
-          const dy = y - midHeight
-
-          // Normalize the grid points.
-          const rx = dx / midWidth
-          const ry = dy / midHeight
-
-          // Construct "force" of the press (how much it pushes into the screen).
-          const force = Math.abs(rx) + Math.abs(ry) / 2
-          const thrust = 13
-
+          // Apply the tilt with an animation.
           elem.style.transitionDuration = "300ms"
-          elem.style.transform = `perspective(400px) rotate3d(${-ry}, ${rx}, 0, ${
-            force * thrust
-          }deg)`
+          elem.style.transform = `perspective(${PERSPECTIVE_PX}) rotate3d(${-ry}, ${rx}, 0, ${angle}deg)`
+
+          // Increment the cycle counter.
+          animationCycleCounterRef.current =
+            animationCycleCounterRef.current + 1
+        }}
+        onTouchMove={(event) => {
+          const elem = document.querySelector(
+            "#number-container"
+          ) as HTMLInputElement | null
+          if (!elem) return
+
+          // Focus on touch start to get instant drawer pull.
+          focusInput()
+
+          // Calculate the tilt.
+          const { rx, ry, angle } = getTiltCoordinates(event)
+
+          // Calculate the active animation delay.
+          const animationDelay = Math.max(
+            0,
+            300 - ++animationCycleCounterRef.current * 50
+          )
+
+          // Apply the tilt with an animation.
+          elem.style.transitionDuration = `${animationDelay}ms`
+          elem.style.transform = `perspective(${PERSPECTIVE_PX}) rotate3d(${-ry}, ${rx}, 0, ${angle}deg)`
         }}
         onTouchEnd={resetStyles}
         onTouchCancel={resetStyles}

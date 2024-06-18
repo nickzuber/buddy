@@ -36,8 +36,8 @@ function App() {
 
     // Get coordinates of press on screen.
     const { clientX, clientY } = event.touches[0]
-    const x = Math.max(0, clientX - elem.offsetLeft)
-    const y = Math.max(0, clientY - elem.offsetTop)
+    const x = clientX - elem.offsetLeft
+    const y = clientY - elem.offsetTop
 
     // Find midpoints of clickable node.
     const midWidth = elem.offsetWidth / 2
@@ -53,7 +53,7 @@ function App() {
 
     // Construct "force" of the press (how much it pushes into the screen).
     // Always divide the smaller r value.
-    // Note entirely sure why this works to be completely honest.
+    // Not entirely sure why this works to be completely honest.
     let force =
       Math.abs(rx) > Math.abs(ry)
         ? Math.abs(rx) + Math.abs(ry) / 2

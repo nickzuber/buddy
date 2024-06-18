@@ -1,4 +1,4 @@
-import createPersistedState from "use-persisted-state"
+import createPersistedState from "../libs/use-persisted-state"
 import { PersistedState } from "../types/core"
 
 export type PersistedStateT<T> = [T, React.Dispatch<T>]

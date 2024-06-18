@@ -1,13 +1,10 @@
 import { DateTime } from "luxon"
 import { useState } from "react"
-import { DebugSkeleton } from "./DebugSkeleton"
-
-// perspective(420px) rotate3d(0, 0, 0, 20deg)
 
 function App() {
-  const [cost, setCost] = useState(0)
-  const [animateClass, setAnimateClass] = useState<string | undefined>()
+  // return <DebugSkeleton />
 
+  const [cost, setCost] = useState(0)
   const numChars = cost.toString().length
 
   function focusInput() {
@@ -35,7 +32,7 @@ function App() {
     <div className="primary-container">
       <div
         id="number-container"
-        className={`primary-number-input-container ${animateClass}`}
+        className="primary-number-input-container"
         style={{
           width: numChars > 4 ? "85%" : numChars > 3 ? "75%" : undefined,
         }}
@@ -100,8 +97,6 @@ function App() {
       <div className="primary-footer"></div>
     </div>
   )
-
-  return <DebugSkeleton />
 }
 
 export default App

@@ -115,6 +115,23 @@ export function sumOfEntries(entries: Array<Entry>): number {
   return entries.reduce((sum, entry) => sum + entry.cost, 0)
 }
 
+export function sumOfRunningMonthCategories(
+  rmc: RunningMonthCategories
+): number {
+  return Object.values(rmc).reduce((sum, rmv) => sum + rmv.max, 0)
+}
+
+export function remainingSumOfRunningMonthCategories(
+  rmc: RunningMonthCategories
+): number {
+  const max = sumOfRunningMonthCategories(rmc)
+  const expenses = Object.values(rmc).reduce(
+    (sum, rmv) => sum + sumOfEntries(rmv.entries),
+    0
+  )
+  return max - expenses
+}
+
 export function makeEntry(cost: number, memo?: string): Entry {
   return {
     id: crypto.randomUUID(),

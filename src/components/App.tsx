@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react"
+import { remainingSumOfRunningMonthCategories } from "../helpers/core"
+import { useCategories } from "../hooks/useCategories"
 import { Category } from "../types/core"
 import { CategorySelector } from "./CategorySelector"
 import { PrimaryCostInput } from "./PrimaryCostInput"
 
 function App() {
+  const { categories } = useCategories()
   const [cost, setCost] = useState(0)
   const [selectedCategory, setSelectedCategory] = useState<
     Category | undefined
   >()
+
+  const budget = remainingSumOfRunningMonthCategories(categories)
 
   useEffect(() => {
     if (selectedCategory === undefined) {
@@ -22,23 +27,32 @@ function App() {
 
   return (
     <div className="primary-container">
+      <div className="primary-top-container">
+        <span className="secondary-rounded-container">{`$${budget.toLocaleString()}`}</span>
+      </div>
       <PrimaryCostInput cost={cost} setCost={setCost} />
-      <CategorySelector
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-      />
 
-      <div className="primary-submittions">
-        <div
-          className="primary-button"
-          onClick={() => {
-            setSelectedCategory(undefined)
-            setCost(0)
-          }}
-        >
-          {"Cancel"}
+      <div className="primary-interaction-container">
+        <CategorySelector
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
+
+        <div className="primary-submittions">
+          <button
+            className="primary-button"
+            style={{ width: "fit-content" }}
+            onClick={() => {
+              setSelectedCategory(undefined)
+              setCost(0)
+            }}
+          >
+            {"Cancel"}
+          </button>
+          <button className="primary-button funky-button-styles">
+            {"Confirm entry"}
+          </button>
         </div>
-        <div className="primary-button">{"Submit"}</div>
       </div>
 
       <div className="primary-footer"></div>

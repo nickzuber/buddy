@@ -66,7 +66,7 @@ body {
     #e9f6fe
   );
 
-  /* background: #fff; */
+  /* background: #faf9fe; */
 
   display: flex;
   flex-direction: column;
@@ -94,7 +94,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 0px;
-  margin: 12px auto 0px;
+  margin: 0 auto;
   text-align: center;
   width: 60%;
 
@@ -152,18 +152,24 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  margin-block: 32px;
 }
 
 .primary-button {
-  padding: 12px 24px;
+  padding: 14px 32px;
   border-radius: 1000px;
   background: #ffffff;
   width: 100%;
 
   font-size: 18px;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 15px -3px,
-    rgba(0, 0, 0, 0.025) 0px 4px 6px -2px;
+  font-weight: 500;
+  font-family: "SF Pro Rounded Semibold", "SF Pro Rounded Semibold Placeholder",
+    "-apple-system", "BlinkMacSystemFont", sans-serif;
+  letter-spacing: 0.66px;
+  color: #1b1524;
+  border: 0;
+
+  /* box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.025) 0px 4px 6px -2px; */
 
   display: flex;
   align-items: center;
@@ -173,6 +179,17 @@ body {
 .primary-button:active {
   transition: all 75ms ease-in-out;
   transform: scale(0.98);
+}
+
+.action-button-styles {
+  background: #f1e7ff;
+  color: #54288f;
+}
+
+.funky-button-styles {
+  background: linear-gradient(0deg, #0d7cd3, #4da6eb);
+  border: 1px solid #3b86c2;
+  color: #ffffff;
 }
 
 .primary-footer {
@@ -188,6 +205,45 @@ body {
 
 .item-not-selected {
   opacity: 0.25 !important;
+}
+
+.primary-interaction-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 32px;
+  align-items: stretch;
+
+  height: calc(100% - 210px - 78px - 32px - 48px - 24px);
+}
+
+.primary-top-container {
+  height: 48px;
+  margin-bottom: -8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.secondary-rounded-container {
+  padding: 12px 32px;
+  border-radius: 1000px;
+  background: #f3f3f3;
+  width: fit-content;
+
+  font-family: "SF Pro Rounded Heavy", "SF Pro Rounded Heavy Placeholder",
+    "-apple-system", "BlinkMacSystemFont", sans-serif;
+
+  color: #1b152455;
+  font-size: 16px;
+  /* box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.025) 0px 4px 6px -2px; */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /**

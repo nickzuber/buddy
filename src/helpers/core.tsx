@@ -201,56 +201,28 @@ export function iconOfTab(tab: Tab): React.ReactNode {
           color="currentColor"
         >
           <path
-            d="M7 3H5C3.89543 3 3 3.89543 3 5V7"
+            d="M15 4V2M15 4V6M15 4H10.5M3 10V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V10H3Z"
             stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
           ></path>
           <path
-            d="M17 3H19C20.1046 3 21 3.89543 21 5V7"
+            d="M3 10V6C3 4.89543 3.89543 4 5 4H7"
             stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
           ></path>
           <path
-            d="M16 8L16 10"
+            d="M7 2V6"
             stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
           ></path>
           <path
-            d="M8 8L8 10"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M9 16C9 16 10 17 12 17C14 17 15 16 15 16"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M12 8L12 13L11 13"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M7 21H5C3.89543 21 3 20.1046 3 19V17"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M17 21H19C20.1046 21 21 20.1046 21 19V17"
+            d="M21 10V6C21 4.89543 20.1046 4 19 4H18.5"
             stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"
@@ -270,56 +242,14 @@ export function iconOfTab(tab: Tab): React.ReactNode {
           color="currentColor"
         >
           <path
-            d="M7 3H5C3.89543 3 3 3.89543 3 5V7"
+            d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
             stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
           ></path>
           <path
-            d="M17 3H19C20.1046 3 21 3.89543 21 5V7"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M16 8L16 10"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M8 8L8 10"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M9 16C9 16 10 17 12 17C14 17 15 16 15 16"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M12 8L12 13L11 13"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M7 21H5C3.89543 21 3 20.1046 3 19V17"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M17 21H19C20.1046 21 21 20.1046 21 19V17"
+            d="M19.6224 10.3954L18.5247 7.7448L20 6L18 4L16.2647 5.48295L13.5578 4.36974L12.9353 2H10.981L10.3491 4.40113L7.70441 5.51596L6 4L4 6L5.45337 7.78885L4.3725 10.4463L2 11V13L4.40111 13.6555L5.51575 16.2997L4 18L6 20L7.79116 18.5403L10.397 19.6123L11 22H13L13.6045 19.6132L16.2551 18.5155C16.6969 18.8313 18 20 18 20L20 18L18.5159 16.2494L19.6139 13.598L21.9999 12.9772L22 11L19.6224 10.3954Z"
             stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"

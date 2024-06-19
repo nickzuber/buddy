@@ -1,8 +1,8 @@
 import {
-  colorOfCategory,
   emojiOfCategory,
   nodeIdOfCategory,
   stringOfCategory,
+  sumOfEntries,
 } from "../helpers/core"
 import { focusInput } from "../helpers/dom"
 import { useCategories } from "../hooks/useCategories"
@@ -10,11 +10,13 @@ import { useTilt } from "../hooks/useTilt"
 import { Category } from "../types/core"
 
 export interface CategorySelectorProps {
+  cost: number
   selectedCategory: Category | undefined
   setSelectedCategory: (category: Category | undefined) => void
 }
 
 export function CategorySelector({
+  cost,
   selectedCategory,
   setSelectedCategory,
 }: CategorySelectorProps) {
@@ -22,7 +24,9 @@ export function CategorySelector({
 
   function onClickCategory(category: Category) {
     setSelectedCategory(category)
-    focusInput()
+    if (cost === 0) {
+      focusInput()
+    }
   }
 
   // We have to do this manually unfortunately.
@@ -73,6 +77,15 @@ export function CategorySelector({
   return (
     <div className="primary-categories">
       {categoriesList.map(({ category, val }) => {
+        const sum = sumOfEntries(val.entries)
+        const remaining = val.max - sum
+        const remainingFormatted = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        })
+          .format(remaining)
+          .split(".")[0]
+
         const nonSelectedClassName = selectedCategory
           ? selectedCategory !== category
             ? "item-not-selected"
@@ -84,12 +97,13 @@ export function CategorySelector({
             className={`primary-category-item ${nonSelectedClassName}`}
             id={nodeIdOfCategory(category)}
             key={category}
-            style={{ color: colorOfCategory(category) }}
+            // style={{ color: colorOfCategory(category) }}
             onClick={() => onClickCategory(category)}
             {...getTouchEventsForCategory(category)}
           >
-            <span style={{ fontSize: 42 }}>{emojiOfCategory(category)}</span>
+            <span style={{ fontSize: 28 }}>{emojiOfCategory(category)}</span>
             <span>{stringOfCategory(category)}</span>
+            <span className="category-byline">{`${remainingFormatted}`}</span>
           </div>
         )
       })}

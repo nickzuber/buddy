@@ -1,4 +1,5 @@
 import { DateTime } from "luxon"
+import { v4 as uuidv4 } from "uuid"
 import {
   Category,
   DEFAULT_MAX_RUNNING_MONETH_VALUE,
@@ -55,7 +56,7 @@ export function emojiOfCategory(category: Category): string {
     case Category.Fun:
       return "🍹"
     case Category.Other:
-      return "☂️"
+      return "🪨" // "🧽"
   }
 }
 
@@ -134,9 +135,9 @@ export function remainingSumOfRunningMonthCategories(
 
 export function makeEntry(cost: number, memo?: string): Entry {
   return {
-    id: crypto.randomUUID(),
-    // date: toFormattedDateTime(DateTime.now()),
-    date: toFormattedDateTime(DateTime.now().minus(1000 * 60 * 60 * 24 * 80)),
+    id: uuidv4(),
+    date: toFormattedDateTime(DateTime.now()),
+    // date: toFormattedDateTime(DateTime.now().minus(1000 * 60 * 60 * 24 * 80)),
     cost,
     memo,
   }

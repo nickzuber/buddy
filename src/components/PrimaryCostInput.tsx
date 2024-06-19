@@ -36,7 +36,7 @@ export function PrimaryCostInput({ cost, setCost }: PrimaryCostInputProps) {
           {parts.map((char, idx) => {
             return (
               <span
-                key={char}
+                key={`${idx}-${char}`}
                 style={{ display: "inline-block" }}
                 className={idx === parts.length - 1 ? "pop-press" : undefined}
               >
@@ -56,7 +56,9 @@ export function PrimaryCostInput({ cost, setCost }: PrimaryCostInputProps) {
           onChange={(event) => {
             const nextNum = Number(event.target.value ?? 0)
             if (!isNaN(nextNum)) {
-              setCost(nextNum)
+              // Don't go over 5 digits. We don't need to (mr big spender) and
+              // trying to handle more than 5 digits gives us layout headaches.
+              setCost(Math.min(nextNum, 99999))
             }
           }}
         />

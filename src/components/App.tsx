@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react"
-import { remainingSumOfRunningMonthCategories } from "../helpers/core"
+import {
+  makeEntry,
+  remainingSumOfRunningMonthCategories,
+} from "../helpers/core"
 import { useCategories } from "../hooks/useCategories"
 import { Category } from "../types/core"
 import { CategorySelector } from "./CategorySelector"
 import { PrimaryCostInput } from "./PrimaryCostInput"
 
 function App() {
-  const { categories } = useCategories()
+  const { categories, addEntryToCategory } = useCategories()
   const [cost, setCost] = useState(0)
   const [selectedCategory, setSelectedCategory] = useState<
     Category | undefined
@@ -25,6 +28,19 @@ function App() {
     }
   }, [selectedCategory])
 
+  function onSubmit() {
+    if (!selectedCategory || cost === 0) {
+      return
+    }
+
+    const entry = makeEntry(cost)
+    addEntryToCategory(selectedCategory, entry)
+
+    // TODO(nickz): More fun submit animations
+    setCost(0)
+    setSelectedCategory(undefined)
+  }
+
   return (
     <div className="primary-container">
       <div className="primary-top-container">
@@ -34,6 +50,7 @@ function App() {
 
       <div className="primary-interaction-container">
         <CategorySelector
+          cost={cost}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
@@ -49,7 +66,11 @@ function App() {
           >
             {"Cancel"}
           </button>
-          <button className="primary-button funky-button-styles">
+          <button
+            disabled={Boolean(!selectedCategory || cost === 0)}
+            onClick={onSubmit}
+            className="primary-button"
+          >
             {"Confirm entry"}
           </button>
         </div>

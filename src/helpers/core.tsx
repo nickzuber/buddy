@@ -78,6 +78,19 @@ export function colorOfCategory(category: Category): string {
   }
 }
 
+export function stringOfTab(tab: Tab): React.ReactNode {
+  switch (tab) {
+    case Tab.Entry:
+      return "Entry"
+    case Tab.Analytics:
+      return "Analytics"
+    case Tab.History:
+      return "History"
+    case Tab.Settings:
+      return "Settings"
+  }
+}
+
 export function iconOfTab(tab: Tab): React.ReactNode {
   switch (tab) {
     case Tab.Entry:
@@ -161,56 +174,14 @@ export function iconOfTab(tab: Tab): React.ReactNode {
           color="currentColor"
         >
           <path
-            d="M7 3H5C3.89543 3 3 3.89543 3 5V7"
+            d="M20 20H4V4"
             stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
           ></path>
           <path
-            d="M17 3H19C20.1046 3 21 3.89543 21 5V7"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M16 8L16 10"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M8 8L8 10"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M9 16C9 16 10 17 12 17C14 17 15 16 15 16"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M12 8L12 13L11 13"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M7 21H5C3.89543 21 3 20.1046 3 19V17"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M17 21H19C20.1046 21 21 20.1046 21 19V17"
+            d="M4 16.5L12 9L15 12L19.5 7.5"
             stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"

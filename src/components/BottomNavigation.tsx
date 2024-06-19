@@ -1,4 +1,4 @@
-import { iconOfTab } from "../helpers/core"
+import { iconOfTab, stringOfTab } from "../helpers/core"
 import { useNavigation } from "../hooks/useNavigation"
 import { Tab } from "../types/core"
 
@@ -20,7 +20,7 @@ export function BottomNavigation() {
             onClick={() => setTab(tab)}
           >
             {iconOfTab(tab)}
-            {tab}
+            {stringOfTab(tab)}
           </div>
         )
       })}

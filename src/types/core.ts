@@ -1,5 +1,6 @@
 export const DEFAULT_MAX_RUNNING_MONETH_VALUE = 100 // usd
 export enum PersistedState {
+  Navigation = "navigation",
   HistoryLedger = "history-ledger",
   RunningMonthCategories = "running-month-categories",
 }
@@ -42,3 +43,10 @@ export type HistoryLedger = Record<
 >
 
 export type MonthYearTimestamp = string & { _opaque: true }
+
+export enum Tab {
+  Entry = "entry",
+  Analytics = "analytics",
+  History = "history",
+  Settings = "settings",
+}

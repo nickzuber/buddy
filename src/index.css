@@ -201,6 +201,28 @@ body {
   height: 78px;
   box-shadow: rgba(17, 17, 26, 0.05) 0px -1px 0px,
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
+  color: #ffffff;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0px;
+}
+
+.primary-footer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  font-size: 14px;
+
+  opacity: 0.5;
+  transition: all 100ms ease-in-out;
+}
+
+.primary-footer-item-active {
+  opacity: 1;
 }
 
 .item-not-selected {

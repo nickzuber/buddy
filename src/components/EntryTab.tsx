@@ -48,7 +48,7 @@ export function EntryTab() {
       </div>
       <PrimaryCostInput cost={cost} setCost={setCost} />
 
-      <div className="primary-interaction-container">
+      <div className="primary-interaction-container ">
         <CategorySelector
           cost={cost}
           selectedCategory={selectedCategory}

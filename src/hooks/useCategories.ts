@@ -254,6 +254,10 @@ export function useCategories() {
     return updatedCategories as RunningMonthCategories
   }
 
+  function clearCategories(): void {
+    setCategories(initialCategories)
+  }
+
   function clearHistory(): void {
     setHistory(initialHistory)
   }
@@ -267,6 +271,7 @@ export function useCategories() {
     editEntryFromCategory,
     removeEntryFromCategory,
     clearEntriesFromCategory,
+    clearCategories,
 
     // History
     history,

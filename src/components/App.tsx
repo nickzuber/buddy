@@ -2,14 +2,17 @@ import { useNavigation } from "../hooks/useNavigation"
 import { Tab } from "../types/core"
 import { BottomNavigation } from "./BottomNavigation"
 import { EntryTab } from "./EntryTab"
+import { HistoryTab } from "./HistoryTab"
 
 function App() {
-  const { tab } = useNavigation()
+  const { tab, setTab } = useNavigation()
 
   function renderContent() {
     switch (tab) {
       case Tab.Entry:
         return <EntryTab />
+      case Tab.History:
+        return <HistoryTab />
       default:
         return <div>{"not supported!"}</div>
     }
@@ -18,7 +21,7 @@ function App() {
   return (
     <div className="primary-container">
       {renderContent()}
-      <BottomNavigation />
+      <BottomNavigation activeTab={tab} setTab={setTab} />
     </div>
   )
 }

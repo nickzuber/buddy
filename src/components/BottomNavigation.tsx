@@ -1,10 +1,12 @@
 import { iconOfTab, stringOfTab } from "../helpers/core"
-import { useNavigation } from "../hooks/useNavigation"
 import { Tab } from "../types/core"
 
-export function BottomNavigation() {
-  const { tab: activeTab, setTab } = useNavigation()
+export interface BottomNavigationProps {
+  activeTab: Tab
+  setTab: (tab: Tab) => void
+}
 
+export function BottomNavigation({ activeTab, setTab }: BottomNavigationProps) {
   // Sorted by left-to-right within the navigation UI.
   const tabs: Array<Tab> = [Tab.Entry, Tab.Analytics, Tab.History, Tab.Settings]
 

@@ -63,6 +63,14 @@ export function useCategories() {
   const [categories, setCategories] = useCategoriesState(initialCategories)
   const [history, setHistory] = useHistoryState(initialHistory)
 
+  const categoriesList = Object.keys(categories).map((key) => {
+    const val = categories[key as Category]
+    return {
+      category: key as Category,
+      val,
+    }
+  })
+
   function changeCategoryMax(category: Category, newMax: number): void {
     setCategories({
       ...categories,
@@ -253,6 +261,7 @@ export function useCategories() {
   return {
     // Categories
     categories,
+    categoriesList,
     changeCategoryMax,
     addEntryToCategory,
     editEntryFromCategory,

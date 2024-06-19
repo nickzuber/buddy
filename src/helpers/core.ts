@@ -8,6 +8,23 @@ import {
   RunningMonthCategories,
 } from "../types/core"
 
+export function nodeIdOfCategory(category: Category): string {
+  switch (category) {
+    case Category.Groceries:
+      return "id-category-groceries"
+    case Category.Transport:
+      return "id-category-transport"
+    case Category.Clothes:
+      return "id-category-clothes"
+    case Category.Restaurants:
+      return "id-category-food"
+    case Category.Fun:
+      return "id-category-fun"
+    case Category.Other:
+      return "id-category-other"
+  }
+}
+
 export function stringOfCategory(category: Category): string {
   switch (category) {
     case Category.Groceries:
@@ -17,11 +34,45 @@ export function stringOfCategory(category: Category): string {
     case Category.Clothes:
       return "Clothes"
     case Category.Restaurants:
-      return "Restaurants"
+      return "Food"
     case Category.Fun:
       return "Fun"
     case Category.Other:
       return "Other"
+  }
+}
+
+export function emojiOfCategory(category: Category): string {
+  switch (category) {
+    case Category.Groceries:
+      return "🥬"
+    case Category.Transport:
+      return "🚗"
+    case Category.Clothes:
+      return "👕"
+    case Category.Restaurants:
+      return "🍝"
+    case Category.Fun:
+      return "🍹"
+    case Category.Other:
+      return "☂️"
+  }
+}
+
+export function colorOfCategory(category: Category): string {
+  switch (category) {
+    case Category.Groceries:
+      return "#31C023"
+    case Category.Transport:
+      return "#F05A4B"
+    case Category.Clothes:
+      return "#319AFB"
+    case Category.Restaurants:
+      return "#FFD43B"
+    case Category.Fun:
+      return "#F28D27"
+    case Category.Other:
+      return "#A97CF0"
   }
 }
 

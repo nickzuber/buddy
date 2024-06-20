@@ -74,8 +74,6 @@ body {
   align-items: stretch;
   justify-content: flex-start;
   gap: 32px;
-
-  overflow-y: auto;
 }
 
 .big-text-primary {
@@ -221,6 +219,7 @@ body {
   gap: 8px;
 
   font-size: 12px;
+  margin-top: -8px;
 
   opacity: 0.35;
   transition: all 100ms ease-in-out;
@@ -375,7 +374,7 @@ body {
 
 .history-category-byline {
   color: #cfbbed;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .history-inner-group {
@@ -397,14 +396,22 @@ body {
 }
 
 .history-group-costs {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  gap: 0px;
+  gap: 0px; */
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px 8px;
 
   font-size: 13px;
   color: #cfbbed;
+}
+
+.history-group-costs span {
+  text-align: right;
+  font-variant: tabular-nums;
 }
 
 .history-category-name {

@@ -4,6 +4,11 @@ import { BottomNavigation } from "./BottomNavigation"
 import { EntryTab } from "./EntryTab"
 import { HistoryTab } from "./HistoryTab"
 
+// If we just set the overflow to always be scroll, this will give Safari
+// that annoying "bouncy scroll" behavior even when there is no scrollable
+// content.
+const TABS_THAT_SCROLL_VERTICALLY: Array<Tab> = [Tab.History]
+
 function App() {
   const { tab, setTab } = useNavigation()
 
@@ -19,7 +24,14 @@ function App() {
   }
 
   return (
-    <div className="primary-container">
+    <div
+      className="primary-container"
+      style={{
+        overflowY: TABS_THAT_SCROLL_VERTICALLY.includes(tab)
+          ? "auto"
+          : undefined,
+      }}
+    >
       {renderContent()}
       <BottomNavigation activeTab={tab} setTab={setTab} />
     </div>

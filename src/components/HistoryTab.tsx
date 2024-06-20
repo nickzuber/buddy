@@ -72,9 +72,8 @@ export function HistoryTab() {
 
         const sum = sumOfEntries(entries)
 
-        const maxFormatted = formatCurrency(max)
-        const costsFormatted = formatCurrency(sum)
-        const remainingFormatted = formatCurrency(max - sum)
+        const maxFormatted = formatCurrency(max, true) //.split("$")[1]
+        const costsFormatted = formatCurrency(sum, true) //.split("$")[1]
 
         const entriesByDay = entries.reduce((map, entry) => {
           const key = getKeyForDay(entry.date)
@@ -94,8 +93,10 @@ export function HistoryTab() {
             <div className="history-group-title-container">
               <div className="history-group-title">{date.toFormat("LLLL")}</div>
               <div className="history-group-costs">
-                <span>{`+${maxFormatted}`}</span>
-                <span>{`-${costsFormatted}`}</span>
+                <span>{`+`}</span>
+                <span>{`${maxFormatted}`}</span>
+                <span>{`–`}</span>
+                <span>{`${costsFormatted}`}</span>
               </div>
             </div>
             {sortedDateKeysInner.map((key) => {
@@ -121,12 +122,15 @@ export function HistoryTab() {
                               {stringOfCategory(entry.category)}
                             </span>
                           </div>
-                          <div className="history-category">
+                          <div
+                            className="history-category"
+                            style={{ marginTop: -4 }}
+                          >
                             <span style={{ opacity: 0 }}>
                               {emojiOfCategory(entry.category)}
                             </span>
                             <span className="history-category-byline">
-                              {cost}
+                              {date.toFormat("h:mm a")}
                             </span>
                           </div>
                         </div>

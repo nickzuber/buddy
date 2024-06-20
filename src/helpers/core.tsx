@@ -319,8 +319,8 @@ export function remainingSumOfRunningMonthCategories(
 export function makeEntry(cost: number, memo?: string): Entry {
   return {
     id: uuidv4(),
-    // date: toFormattedDateTime(DateTime.now()),
-    date: toFormattedDateTime(DateTime.now().minus(1000 * 60 * 60 * 24 * 36)),
+    date: toFormattedDateTime(DateTime.now()),
+    // date: toFormattedDateTime(DateTime.now().minus(1000 * 60 * 60 * 24 * 36)),
     cost,
     memo,
   }

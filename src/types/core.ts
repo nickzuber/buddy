@@ -1,3 +1,5 @@
+import { DateTime } from "luxon"
+
 export const DEFAULT_MAX_RUNNING_MONETH_VALUE = 100 // usd
 export enum PersistedState {
   Navigation = "navigation",
@@ -49,4 +51,35 @@ export enum Tab {
   Analytics = "analytics",
   History = "history",
   Settings = "settings",
+}
+
+export enum Month {
+  Jan = "jan",
+  Feb = "feb",
+  Mar = "mar",
+  Apr = "apr",
+  May = "may",
+  Jun = "jun",
+  Jul = "jul",
+  Aug = "aug",
+  Sept = "sept",
+  Oct = "oct",
+  Nov = "nov",
+  Dev = "dev",
+}
+
+// Used for grouping the entries by day.
+export function getKeyForDay(date: DateTime) {
+  return date.ordinal
+}
+
+// Used for grouping the entries by month.
+export function getKeyForMonth(date: DateTime) {
+  return date.get("month") - 1 // 0-indexed
+}
+
+export type HydratedEntry = Entry & {
+  date: DateTime
+  max: number
+  category: Category
 }

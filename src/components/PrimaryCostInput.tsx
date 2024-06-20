@@ -51,6 +51,7 @@ export function PrimaryCostInput({ cost, setCost }: PrimaryCostInputProps) {
         <input
           id="hidden-input"
           className="hidden-input"
+          autoComplete="off"
           type="tel"
           value={cost}
           onChange={(event) => {

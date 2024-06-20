@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import {
+  formatCurrency,
   makeEntry,
-  remainingSumOfRunningMonthCategories,
+  remainingsumOfRunningMonthCategoriesMax,
 } from "../helpers/core"
 import { useCategories } from "../hooks/useCategories"
 import { Category } from "../types/core"
@@ -15,7 +16,7 @@ export function EntryTab() {
     Category | undefined
   >()
 
-  const budget = remainingSumOfRunningMonthCategories(categories)
+  const budget = remainingsumOfRunningMonthCategoriesMax(categories)
 
   useEffect(() => {
     if (selectedCategory === undefined) {
@@ -44,7 +45,9 @@ export function EntryTab() {
   return (
     <>
       <div className="primary-top-container">
-        <span className="secondary-rounded-container">{`$${budget.toLocaleString()}`}</span>
+        <span className="secondary-rounded-container">
+          {formatCurrency(budget)}
+        </span>
       </div>
       <PrimaryCostInput cost={cost} setCost={setCost} />
 
@@ -59,6 +62,7 @@ export function EntryTab() {
           <button
             className="primary-button"
             style={{ width: "fit-content" }}
+            disabled={!Boolean(selectedCategory || cost > 0)}
             onClick={() => {
               setSelectedCategory(undefined)
               setCost(0)
@@ -67,9 +71,9 @@ export function EntryTab() {
             {"Cancel"}
           </button>
           <button
+            className="primary-button"
             disabled={Boolean(!selectedCategory || cost === 0)}
             onClick={onSubmit}
-            className="primary-button"
           >
             {"Confirm entry"}
           </button>

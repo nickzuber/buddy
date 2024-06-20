@@ -5,10 +5,40 @@ import {
   DEFAULT_MAX_RUNNING_MONETH_VALUE,
   Entry,
   FormattedDateTime,
+  Month,
   MonthYearTimestamp,
   RunningMonthCategories,
   Tab,
 } from "../types/core"
+
+export function stringOfMonth(month: Month): string {
+  switch (month) {
+    case Month.Jan:
+      return "January"
+    case Month.Feb:
+      return "February"
+    case Month.Mar:
+      return "March"
+    case Month.Apr:
+      return "April"
+    case Month.May:
+      return "May"
+    case Month.Jun:
+      return "June"
+    case Month.Jul:
+      return "July"
+    case Month.Aug:
+      return "August"
+    case Month.Sept:
+      return "September"
+    case Month.Oct:
+      return "October"
+    case Month.Nov:
+      return "November"
+    case Month.Dev:
+      return "December"
+  }
+}
 
 export function nodeIdOfCategory(category: Category): string {
   switch (category) {
@@ -105,56 +135,30 @@ export function iconOfTab(tab: Tab): React.ReactNode {
           color="currentColor"
         >
           <path
-            d="M7 3H5C3.89543 3 3 3.89543 3 5V7"
+            d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z"
             stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           ></path>
           <path
-            d="M17 3H19C20.1046 3 21 3.89543 21 5V7"
+            d="M16.5 14.5C16.5 14.5 15 16.5 12 16.5C9 16.5 7.5 14.5 7.5 14.5"
             stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           ></path>
           <path
-            d="M16 8L16 10"
+            d="M15.5 9C15.2239 9 15 8.77614 15 8.5C15 8.22386 15.2239 8 15.5 8C15.7761 8 16 8.22386 16 8.5C16 8.77614 15.7761 9 15.5 9Z"
+            fill="currentColor"
             stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           ></path>
           <path
-            d="M8 8L8 10"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>
-          <path
-            d="M9 16C9 16 10 17 12 17C14 17 15 16 15 16"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>
-          <path
-            d="M12 8L12 13L11 13"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>
-          <path
-            d="M7 21H5C3.89543 21 3 20.1046 3 19V17"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>
-          <path
-            d="M17 21H19C20.1046 21 21 20.1046 21 19V17"
+            d="M8.5 9C8.22386 9 8 8.77614 8 8.5C8 8.22386 8.22386 8 8.5 8C8.77614 8 9 8.22386 9 8.5C9 8.77614 8.77614 9 8.5 9Z"
+            fill="currentColor"
             stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
@@ -302,13 +306,22 @@ export function sumOfEntries(entries: Array<Entry>): number {
 export function sumOfRunningMonthCategories(
   rmc: RunningMonthCategories
 ): number {
+  return Object.values(rmc).reduce(
+    (sum, rmv) => sum + sumOfEntries(rmv.entries),
+    0
+  )
+}
+
+export function sumOfRunningMonthCategoriesMax(
+  rmc: RunningMonthCategories
+): number {
   return Object.values(rmc).reduce((sum, rmv) => sum + rmv.max, 0)
 }
 
-export function remainingSumOfRunningMonthCategories(
+export function remainingsumOfRunningMonthCategoriesMax(
   rmc: RunningMonthCategories
 ): number {
-  const max = sumOfRunningMonthCategories(rmc)
+  const max = sumOfRunningMonthCategoriesMax(rmc)
   const expenses = Object.values(rmc).reduce(
     (sum, rmv) => sum + sumOfEntries(rmv.entries),
     0

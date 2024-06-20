@@ -1,35 +1,23 @@
-import { DateTime } from "luxon"
 import {
   emojiOfCategory,
   formatCurrency,
   fromFormattedDateTime,
   stringOfCategory,
   sumOfEntries,
-  sumOfRunningMonthCategories,
+  sumOfRunningMonthCategoriesMax,
 } from "../helpers/core"
 import { useCategories } from "../hooks/useCategories"
-import { Category, Entry } from "../types/core"
-
-// Used for grouping the entries by day.
-function getKeyForDay(date: DateTime) {
-  return date.ordinal
-}
-
-// Used for grouping the entries by month.
-function getKeyForMonth(date: DateTime) {
-  return date.get("month")
-}
-
-type HydratedEntry = Entry & {
-  date: DateTime
-  max: number
-  category: Category
-}
+import {
+  Category,
+  HydratedEntry,
+  getKeyForDay,
+  getKeyForMonth,
+} from "../types/core"
 
 export function HistoryTab() {
   const { categories } = useCategories()
 
-  const max = sumOfRunningMonthCategories(categories)
+  const max = sumOfRunningMonthCategoriesMax(categories)
 
   const allEntries = Object.entries(categories)
     .map(([cat, rmv]) =>
@@ -65,7 +53,9 @@ export function HistoryTab() {
   )
 
   return (
-    <div className="history-container">
+    <div className="tab-container">
+      <div className="tab-header-container">{"History"}</div>
+
       {sortedDateKeys.map((key) => {
         const entries = entriesByMonth[key]
         const date = entries[0].date

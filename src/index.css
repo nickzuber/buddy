@@ -205,7 +205,7 @@ body {
   color: #ffffff;
 
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0px;
 
   padding-bottom: 18px;
@@ -449,18 +449,31 @@ body {
 .dropdown-core {
   margin: 8px auto 24px;
   gap: 6px;
-  font-size: 18px;
   padding-right: 16px;
   padding-left: 22px;
   padding-block: 8px;
+  background: #ffffff;
+
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "SF Pro Rounded Semibold", "SF Pro Rounded Semibold Placeholder",
+    "-apple-system", "BlinkMacSystemFont", sans-serif;
+  letter-spacing: 0.66px;
+  color: #1b1524;
 }
 
-.analytics-header {
+.overview-header {
   margin: 12px auto 0;
   color: #ffffff;
 }
 
-.analytics-items-container {
+.overview-header-byline {
+  margin: -4px auto 4px;
+  color: #cfbbed;
+  font-size: 19px;
+}
+
+.overview-items-container {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -471,55 +484,70 @@ body {
   margin-top: 12px;
 }
 
-.analytics-item {
+.overview-item {
   position: relative;
   background: transparent;
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border-radius: 24px;
+  border-radius: 16px;
   box-sizing: border-box;
+  padding: 16px 20px;
 
   color: #ffffff;
   overflow: hidden;
 }
 
-.analytics-item-inner {
+.overview-item-inner {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 24px;
-  border-radius: 24px;
+  border-radius: 16px;
   box-sizing: border-box;
   z-index: 1;
 }
 
-.analytics-item-fill {
+.overview-item-byline-inner {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.overview-item-fill {
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   background: #9971dc;
-  border-radius: 24px;
+  border-radius: 16px;
 
   /**
    * Prevents border radius jank.
    * `minWdith > radius * 2`
    */
-  min-width: 50px;
+  min-width: 32px;
 
   width: 0px;
-  transition: all 700ms cubic-bezier(0.18, 0.825, 0.2, 0.945);
+  transition: all 600ms cubic-bezier(0.085, 1, 0.485, 0.985);
 }
 
-.analytics-item-category {
+.overview-item-category {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
+}
+
+.overview-item-byline-category {
+  color: #cfbbed;
+  font-size: 14px;
 }
 
 /**

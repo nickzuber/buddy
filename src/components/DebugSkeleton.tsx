@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { DateTime } from "luxon"
+import { useState } from "react"
 import {
   areAllEntriesWithinCurrentCycle,
   fromFormattedDateTime,
@@ -12,6 +13,7 @@ import { useCategories } from "../hooks/useCategories"
 import { Category } from "../types/core"
 
 export function DebugSkeleton() {
+  const currentMonthIndex = DateTime.now().get("month")
   const {
     categories,
     addEntryToCategory,
@@ -21,10 +23,6 @@ export function DebugSkeleton() {
     history,
     clearHistory,
   } = useCategories()
-
-  useEffect(() => {
-    console.info(history)
-  }, [history])
 
   const [selectedCategory, setSelectedCategory] = useState<
     Category | undefined
@@ -67,7 +65,8 @@ export function DebugSkeleton() {
         </button>
         <input id="user-value" type="number" placeholder="$0" />
         <h3>{`Category: ${stringOfCategory(selectedCategory)}, $${sumOfEntries(
-          entries
+          entries,
+          currentMonthIndex
         )}`}</h3>
         <br />
         {entries.map((entry) => {
@@ -137,7 +136,8 @@ export function DebugSkeleton() {
             ) : undefined}
             <br />
             {`Max: $${max}, Entries (total): ${entries.length}; $${sumOfEntries(
-              entries
+              entries,
+              currentMonthIndex
             )}`}
             <br />
             <button

@@ -48,24 +48,25 @@ export type MonthYearTimestamp = string & { _opaque: true }
 
 export enum Tab {
   Entry = "entry",
+  Overview = "overview",
   Analytics = "analytics",
   History = "history",
   Settings = "settings",
 }
 
 export enum Month {
-  Jan = "jan",
-  Feb = "feb",
-  Mar = "mar",
-  Apr = "apr",
-  May = "may",
-  Jun = "jun",
-  Jul = "jul",
-  Aug = "aug",
-  Sept = "sept",
-  Oct = "oct",
-  Nov = "nov",
-  Dev = "dev",
+  Jan = 1,
+  Feb = 2,
+  Mar = 3,
+  Apr = 4,
+  May = 5,
+  Jun = 6,
+  Jul = 7,
+  Aug = 8,
+  Sept = 9,
+  Oct = 10,
+  Nov = 11,
+  Dev = 12,
 }
 
 // Used for grouping the entries by day.
@@ -75,7 +76,7 @@ export function getKeyForDay(date: DateTime) {
 
 // Used for grouping the entries by month.
 export function getKeyForMonth(date: DateTime) {
-  return date.get("month") - 1 // 0-indexed
+  return date.get("month")
 }
 
 export type HydratedEntry = Entry & {

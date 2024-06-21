@@ -59,8 +59,9 @@ export function HistoryTab() {
       {sortedDateKeys.map((key) => {
         const entries = entriesByMonth[key]
         const date = entries[0].date
+        const currentMonthIndex = date.get("month")
 
-        const sum = sumOfEntries(entries)
+        const sum = sumOfEntries(entries, currentMonthIndex)
 
         const maxFormatted = formatCurrency(max, true) //.split("$")[1]
         const costsFormatted = formatCurrency(sum, true) //.split("$")[1]
@@ -79,7 +80,7 @@ export function HistoryTab() {
         )
 
         return (
-          <div className="history-group">
+          <div key={key} className="history-group">
             <div className="history-group-title-container">
               <div className="history-group-title">{date.toFormat("LLLL")}</div>
               <div className="history-group-costs">
@@ -93,7 +94,7 @@ export function HistoryTab() {
               const entries = entriesByDay[key]
 
               return (
-                <div className="history-inner-group">
+                <div key={key} className="history-inner-group">
                   <div className="history-inner-group-title-outer">
                     <div className="history-inner-group-title">
                       {entries[0].date.toFormat("LLL d yyyy")}
@@ -104,7 +105,7 @@ export function HistoryTab() {
                     const cost = formatCurrency(entry.cost)
 
                     return (
-                      <div className="history-item">
+                      <div key={entry.id} className="history-item">
                         <div className="history-category-outer">
                           <div className="history-category">
                             <span>{emojiOfCategory(entry.category)}</span>

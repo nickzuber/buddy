@@ -1,3 +1,4 @@
+import { DateTime } from "luxon"
 import {
   emojiOfCategory,
   nodeIdOfCategory,
@@ -21,6 +22,7 @@ export function CategorySelector({
   setSelectedCategory,
 }: CategorySelectorProps) {
   const { categoriesList } = useCategories()
+  const currentMonthIndex = DateTime.now().get("month")
 
   function onClickCategory(category: Category) {
     setSelectedCategory(category)
@@ -77,7 +79,7 @@ export function CategorySelector({
   return (
     <div className="primary-categories">
       {categoriesList.map(({ category, val }) => {
-        const sum = sumOfEntries(val.entries)
+        const sum = sumOfEntries(val.entries, currentMonthIndex)
         const remaining = val.max - sum
         const remainingFormatted = new Intl.NumberFormat("en-US", {
           style: "currency",
@@ -97,7 +99,6 @@ export function CategorySelector({
             className={`primary-category-item ${nonSelectedClassName}`}
             id={nodeIdOfCategory(category)}
             key={category}
-            // style={{ color: colorOfCategory(category) }}
             onClick={() => onClickCategory(category)}
             {...getTouchEventsForCategory(category)}
           >

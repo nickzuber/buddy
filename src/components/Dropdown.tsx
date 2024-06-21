@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 export interface Item<T> {
   id: string
   title: string
@@ -7,11 +9,24 @@ export interface Item<T> {
 export interface DropdownProps<T> {
   selectedItem: Item<T>
   items: Array<Item<T>>
+  onChange: (item: Item<T>) => void
 }
 
-export function Dropdown<T>({ selectedItem, items }: DropdownProps<T>) {
+export function Dropdown<T>({
+  selectedItem,
+  items,
+  onChange,
+}: DropdownProps<T>) {
+  const [open, setOpen] = useState(false)
+
+  if (open) {
+  }
+
   return (
-    <div className="secondary-rounded-container dropdown-core">
+    <div
+      className="secondary-rounded-container dropdown-core"
+      onClick={() => setOpen(true)}
+    >
       {selectedItem.title}
       <svg
         width="22px"

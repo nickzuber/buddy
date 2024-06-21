@@ -8,10 +8,21 @@ export interface BottomNavigationProps {
 
 export function BottomNavigation({ activeTab, setTab }: BottomNavigationProps) {
   // Sorted by left-to-right within the navigation UI.
-  const tabs: Array<Tab> = [Tab.Entry, Tab.Analytics, Tab.History, Tab.Settings]
+  const tabs: Array<Tab> = [
+    Tab.Entry,
+    Tab.Overview,
+    // Tab.Analytics,
+    Tab.History,
+    Tab.Settings,
+  ]
 
   return (
-    <div className="primary-footer">
+    <div
+      className="primary-footer"
+      style={{
+        gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))`,
+      }}
+    >
       {tabs.map((tab) => {
         return (
           <div

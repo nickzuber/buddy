@@ -52,17 +52,38 @@ function createInitialCategoryGroupings(): Record<
   }
 }
 
-export function AnalyticsTab() {
+export function OverviewTab() {
   const { categories } = useCategories()
-  const expenses = formatCurrency(sumOfRunningMonthCategories(categories))
 
-  const currentMonthId = DateTime.now().get("month") - 1 // 0-indexed
+  // Subtract 1 because this is selecting the month from the array, which is 0-indexed.
+  // Note that DateTime#get#month is NOT 0-indexed (e.g. January == 1)
+  const startingMonthIndex = DateTime.now().get("month") - 1
   const [selectedMonth, setSelectedMonth] = useState<Item<Month>>(
-    MONTH_ITEMS[currentMonthId]
+    MONTH_ITEMS[startingMonthIndex]
   )
 
-  // (?) Might need this for overall budget overspending?
-  const max = sumOfRunningMonthCategoriesMax(categories)
+  // This works because Month enum evaluates to the proper month index for Luxon.
+  const selectedMonthIndex = selectedMonth.value as number
+
+  // This is for the overall spending trend.
+  const expenses = sumOfRunningMonthCategories(categories, selectedMonthIndex)
+  const monthlyExpenses = sumOfRunningMonthCategories(
+    categories,
+    selectedMonthIndex
+  )
+  const monthlyMax = sumOfRunningMonthCategoriesMax(categories)
+  const monthlyRemainingBudget = monthlyMax - monthlyExpenses
+
+  const maxOfCategories = Object.entries(categories)
+    .map(([cat, val]) => {
+      const category = cat as Category
+      const max = val.max
+      return { category, max }
+    })
+    .reduce((map, { category, max }) => {
+      map[category] = max
+      return map
+    }, {} as Record<Category, number>)
 
   const allEntries = Object.entries(categories)
     .map(([cat, rmv]) =>
@@ -93,7 +114,8 @@ export function AnalyticsTab() {
     return map
   }, {} as Record<string, Array<HydratedEntry>>)
 
-  const selectedMonthEntries = entriesByMonth[currentMonthId]
+  // This might not have any entries if there were none, so fallback to empty.
+  const selectedMonthEntries = entriesByMonth[selectedMonthIndex] ?? []
 
   const selectedEntriesByCategory = selectedMonthEntries.reduce(
     (map, entry) => {
@@ -112,49 +134,88 @@ export function AnalyticsTab() {
 
     const aCost = sumOfEntries(a)
     const bCost = sumOfEntries(b)
+
     return bCost - aCost
   }) as Array<Category>
 
   return (
     <div className="tab-container">
       <div className="tab-header-container">{"Analytics"}</div>
-      <div className="big-text-primary analytics-header">{expenses}</div>
-      <Dropdown selectedItem={selectedMonth} items={MONTH_ITEMS} />
+      <div className="big-text-primary overview-header">
+        {formatCurrency(expenses)}
+      </div>
+      <div className="big-text-primaryx overview-header-byline">
+        {monthlyRemainingBudget > 0
+          ? `Under budget by ${formatCurrency(monthlyRemainingBudget)}`
+          : `Over budget by ${formatCurrency(
+              Math.abs(monthlyRemainingBudget)
+            )}`}
+      </div>
+      <Dropdown
+        selectedItem={selectedMonth}
+        items={MONTH_ITEMS}
+        onChange={(item: Item<Month>) => setSelectedMonth(item)}
+      />
 
-      <div className="analytics-items-container">
+      <div className="overview-items-container">
         {selectedEntryCategoryKeysSortedByUsage.map((category) => {
           const entries = selectedEntriesByCategory[category]
-          const max = entries[0]?.max ?? 1
+          const max = maxOfCategories[category]
           const expenses = sumOfEntries(entries)
 
+          const remaining = max - expenses
+
           // Defines the width of the container.
-          const expensesRatio = Math.max(0, Math.min(expenses / max, 1))
+          const expensesRatio = expenses / max
+          const expensesRatioNormalized = Math.max(
+            0,
+            Math.min(expensesRatio, 1)
+          )
+          const formattedExpensesRatio = (expensesRatio * 100).toLocaleString(
+            "en-US",
+            {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            }
+          )
           const nodeId = `uid-${category}`
 
           return (
-            <div key={category} className="analytics-item">
+            <div key={category} className="overview-item">
               <div
                 id={nodeId}
-                className="analytics-item-fill"
+                className="overview-item-fill"
                 ref={() => {
                   const elem = document.querySelector(
                     `#${nodeId}`
                   ) as HTMLDivElement | null
                   if (!elem) return
                   setTimeout(
-                    () => (elem.style.width = `${expensesRatio * 100}%`),
+                    () =>
+                      (elem.style.width = `${expensesRatioNormalized * 100}%`),
                     1
                   )
                 }}
               />
-              <div className="analytics-item-inner">
-                <span className="analytics-item-category">
+              <div className="overview-item-inner">
+                <span className="overview-item-category">
                   <span style={{ fontSize: 26 }}>
                     {emojiOfCategory(category)}
                   </span>
                   <span>{stringOfCategory(category)}</span>
                 </span>
                 <span>{formatCurrency(expenses)}</span>
+              </div>
+              <div className="overview-item-byline-inner overview-item-byline-category">
+                <span className="overview-item-category">
+                  <span style={{ opacity: 0, fontSize: 26, lineHeight: 0 }}>
+                    {emojiOfCategory(category)}
+                  </span>
+                  <span>{`${formatCurrency(remaining)} of ${formatCurrency(
+                    max
+                  )}`}</span>
+                </span>
+                <span>{`${formattedExpensesRatio}%`}</span>
               </div>
             </div>
           )

@@ -1,3 +1,4 @@
+import { DateTime } from "luxon"
 import { useEffect, useState } from "react"
 import {
   formatCurrency,
@@ -16,7 +17,11 @@ export function EntryTab() {
     Category | undefined
   >()
 
-  const budget = remainingsumOfRunningMonthCategoriesMax(categories)
+  const currentMonthIndex = DateTime.now().get("month")
+  const budget = remainingsumOfRunningMonthCategoriesMax(
+    categories,
+    currentMonthIndex
+  )
 
   useEffect(() => {
     if (selectedCategory === undefined) {

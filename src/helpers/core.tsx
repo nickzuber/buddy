@@ -114,6 +114,8 @@ export function stringOfTab(tab: Tab): React.ReactNode {
       return "Entry"
     case Tab.Analytics:
       return "Analytics"
+    case Tab.Overview:
+      return "Overview"
     case Tab.History:
       return "History"
     case Tab.Settings:
@@ -159,6 +161,33 @@ export function iconOfTab(tab: Tab): React.ReactNode {
           <path
             d="M8.5 9C8.22386 9 8 8.77614 8 8.5C8 8.22386 8.22386 8 8.5 8C8.77614 8 9 8.22386 9 8.5C9 8.77614 8.77614 9 8.5 9Z"
             fill="currentColor"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          ></path>
+        </svg>
+      )
+    case Tab.Overview:
+      return (
+        <svg
+          width="22px"
+          height="22px"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          color="currentColor"
+        >
+          <path
+            d="M20 20H4V4"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          ></path>
+          <path
+            d="M4 16.5L12 9L15 12L19.5 7.5"
             stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
@@ -299,15 +328,36 @@ export function addToRunningMonthValue(args: {
   return runningMonthCategories
 }
 
-export function sumOfEntries(entries: Array<Entry>): number {
-  return entries.reduce((sum, entry) => sum + entry.cost, 0)
+export function filterEntriesByMonth(
+  entries: Array<Entry>,
+  monthIndex: number
+): Array<Entry> {
+  return entries.filter((entry) => {
+    const entryMonthIndex = fromFormattedDateTime(entry.date).get("month")
+    return monthIndex === entryMonthIndex
+  })
+}
+
+export function sumOfEntries(
+  entries: Array<Entry>,
+  monthIndex?: number
+): number {
+  if (monthIndex !== undefined) {
+    return filterEntriesByMonth(entries, monthIndex).reduce(
+      (sum, entry) => sum + entry.cost,
+      0
+    )
+  } else {
+    return entries.reduce((sum, entry) => sum + entry.cost, 0)
+  }
 }
 
 export function sumOfRunningMonthCategories(
-  rmc: RunningMonthCategories
+  rmc: RunningMonthCategories,
+  monthIndex: number
 ): number {
   return Object.values(rmc).reduce(
-    (sum, rmv) => sum + sumOfEntries(rmv.entries),
+    (sum, rmv) => sum + sumOfEntries(rmv.entries, monthIndex),
     0
   )
 }
@@ -319,11 +369,12 @@ export function sumOfRunningMonthCategoriesMax(
 }
 
 export function remainingsumOfRunningMonthCategoriesMax(
-  rmc: RunningMonthCategories
+  rmc: RunningMonthCategories,
+  monthIndex: number
 ): number {
   const max = sumOfRunningMonthCategoriesMax(rmc)
   const expenses = Object.values(rmc).reduce(
-    (sum, rmv) => sum + sumOfEntries(rmv.entries),
+    (sum, rmv) => sum + sumOfEntries(rmv.entries, monthIndex),
     0
   )
   return max - expenses

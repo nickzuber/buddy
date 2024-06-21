@@ -409,6 +409,8 @@ body {
   justify-content: space-between;
   gap: 8px;
   width: 100%;
+
+  transition: all 200ms ease-in-out;
 }
 
 .history-group-costs {

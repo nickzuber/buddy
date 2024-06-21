@@ -1,3 +1,4 @@
+import { useState } from "react"
 import {
   emojiOfCategory,
   formatCurrency,
@@ -15,7 +16,8 @@ import {
 } from "../types/core"
 
 export function HistoryTab() {
-  const { categories } = useCategories()
+  const { categories, removeEntryFromCategory } = useCategories()
+  const [openedId, setOpenedId] = useState<string | undefined>()
 
   const max = sumOfRunningMonthCategoriesMax(categories)
 
@@ -53,7 +55,7 @@ export function HistoryTab() {
   )
 
   return (
-    <div className="tab-container">
+    <div className="tab-container" onClick={() => setOpenedId(undefined)}>
       <div className="tab-header-container">{"History"}</div>
 
       {sortedDateKeys.map((key) => {
@@ -105,28 +107,51 @@ export function HistoryTab() {
                     const cost = formatCurrency(entry.cost)
 
                     return (
-                      <div key={entry.id} className="history-item">
-                        <div className="history-category-outer">
-                          <div className="history-category">
-                            <span>{emojiOfCategory(entry.category)}</span>
-                            <span className="history-category-name">
-                              {stringOfCategory(entry.category)}
-                            </span>
+                      <>
+                        <div
+                          key={entry.id}
+                          style={{
+                            opacity:
+                              openedId !== undefined
+                                ? openedId === entry.id
+                                  ? 1
+                                  : 0.5
+                                : undefined,
+                          }}
+                          className="history-item"
+                          onClick={(event) => {
+                            event.stopPropagation()
+                            if (openedId === entry.id) {
+                              // TODO(zube): Temporary removal behavior.
+                              removeEntryFromCategory(entry.category, entry.id)
+                              setOpenedId(undefined)
+                            } else {
+                              setOpenedId(entry.id)
+                            }
+                          }}
+                        >
+                          <div className="history-category-outer">
+                            <div className="history-category">
+                              <span>{emojiOfCategory(entry.category)}</span>
+                              <span className="history-category-name">
+                                {stringOfCategory(entry.category)}
+                              </span>
+                            </div>
+                            <div
+                              className="history-category"
+                              style={{ marginTop: -4 }}
+                            >
+                              <span style={{ opacity: 0 }}>
+                                {emojiOfCategory(entry.category)}
+                              </span>
+                              <span className="history-category-byline">
+                                {date.toFormat("h:mm a")}
+                              </span>
+                            </div>
                           </div>
-                          <div
-                            className="history-category"
-                            style={{ marginTop: -4 }}
-                          >
-                            <span style={{ opacity: 0 }}>
-                              {emojiOfCategory(entry.category)}
-                            </span>
-                            <span className="history-category-byline">
-                              {date.toFormat("h:mm a")}
-                            </span>
-                          </div>
+                          <div className="history-cost">{cost}</div>
                         </div>
-                        <div className="history-cost">{cost}</div>
-                      </div>
+                      </>
                     )
                   })}
                 </div>

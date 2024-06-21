@@ -7,13 +7,13 @@ import {
 } from "../types/core"
 import { createState } from "./persisted"
 
-type NewHistory = Record<
-  Category,
-  {
-    entries: Array<Entry>
-    max: number
-  }
->
+// type NewHistory = Record<
+//   Category,
+//   {
+//     entries: Array<Entry>
+//     max: number
+//   }
+// >
 
 const useCategoriesState = createState<RunningMonthCategories>(
   PersistedState.RunningMonthCategories
@@ -229,23 +229,23 @@ export function useCategories() {
     // setHistory(updatedHistoryLedger)
   }
 
-  function removeEntriesFromCategories(
-    categories: RunningMonthCategories,
-    idsToRemove: Set<string>
-  ): RunningMonthCategories {
-    const keys = Object.keys(categories) as Array<Category>
-    const updatedCategories = {} as Partial<RunningMonthCategories>
-    for (const category of keys) {
-      updatedCategories[category] = {
-        max: categories[category].max,
-        entries: categories[category].entries.filter(
-          (entry) => !idsToRemove.has(entry.id)
-        ),
-      }
-    }
+  // function removeEntriesFromCategories(
+  //   categories: RunningMonthCategories,
+  //   idsToRemove: Set<string>
+  // ): RunningMonthCategories {
+  //   const keys = Object.keys(categories) as Array<Category>
+  //   const updatedCategories = {} as Partial<RunningMonthCategories>
+  //   for (const category of keys) {
+  //     updatedCategories[category] = {
+  //       max: categories[category].max,
+  //       entries: categories[category].entries.filter(
+  //         (entry) => !idsToRemove.has(entry.id)
+  //       ),
+  //     }
+  //   }
 
-    return updatedCategories as RunningMonthCategories
-  }
+  //   return updatedCategories as RunningMonthCategories
+  // }
 
   function clearCategories(): void {
     setCategories(initialCategories)

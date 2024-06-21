@@ -443,15 +443,13 @@ body {
 }
 
 /**
- * Analytics
+ * Overview
  */
 
-.dropdown-core {
+.dropdown-core-outer {
   margin: 8px auto 24px;
   gap: 6px;
-  padding-right: 16px;
-  padding-left: 22px;
-  padding-block: 8px;
+  padding: 5px 18px;
   background: #ffffff;
 
   font-size: 18px;
@@ -460,6 +458,26 @@ body {
     "-apple-system", "BlinkMacSystemFont", sans-serif;
   letter-spacing: 0.66px;
   color: #1b1524;
+
+  outline: none;
+  border: 0;
+}
+
+.dropdown-core {
+  gap: 6px;
+  padding-inline: 0px;
+  padding-block: 8px;
+  height: 38px;
+
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "SF Pro Rounded Semibold", "SF Pro Rounded Semibold Placeholder",
+    "-apple-system", "BlinkMacSystemFont", sans-serif;
+  letter-spacing: 0.66px;
+  color: #1b1524;
+
+  outline: none;
+  border: 0;
 }
 
 .overview-header {

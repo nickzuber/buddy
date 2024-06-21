@@ -122,7 +122,7 @@ export function HistoryTab() {
                           onClick={(event) => {
                             event.stopPropagation()
                             if (openedId === entry.id) {
-                              // TODO(zube): Temporary removal behavior.
+                              // TODO(zube): Probably should be temporary; remove behavior later.
                               removeEntryFromCategory(entry.category, entry.id)
                               setOpenedId(undefined)
                             } else {

@@ -57,16 +57,17 @@ body {
   padding: 32px 24px;
   box-sizing: border-box;
 
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to right bottom,
     #fef4e0,
     #eff8e6,
     #e5f9f0,
     #e3f8fa,
     #e9f6fe
-  );
+  ); */
 
-  background: #a97cf0;
+  background: var(--primary);
+  transition: background 400ms ease-in-out;
 
   display: flex;
   flex-direction: column;
@@ -140,7 +141,7 @@ body {
   justify-content: space-between;
   gap: 2px;
 
-  background: #9971dc;
+  background: var(--primary-alt);
   color: #ffffff;
 }
 
@@ -194,8 +195,8 @@ body {
 }
 
 .primary-footer {
-  background: #352e4f;
-  position: absolute;
+  background: var(--footer-background);
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
@@ -203,6 +204,8 @@ body {
   box-shadow: rgba(17, 17, 26, 0.05) 0px -1px 0px,
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
   color: #ffffff;
+
+  transition: background 400ms ease-in-out;
 
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -283,7 +286,7 @@ body {
   font-family: "SF Pro Rounded Heavy", "SF Pro Rounded Heavy Placeholder",
     "-apple-system", "BlinkMacSystemFont", sans-serif;
 
-  color: #3f1c767a;
+  color: var(--primary-alt);
   font-size: 16px;
   /* box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.025) 0px 4px 6px -2px; */
@@ -294,7 +297,7 @@ body {
 }
 
 .category-byline {
-  color: #cfbbed;
+  color: #ffffff8f;
 }
 
 /**
@@ -319,7 +322,7 @@ body {
   gap: 8px;
   width: 100%;
 
-  background: #9971dc;
+  background: var(--primary-alt);
   border-radius: 12px;
   padding: 18px 24px;
   box-sizing: border-box;
@@ -345,8 +348,8 @@ body {
   font-size: 12px;
   width: fit-content;
   /* background: #aa88e1; */
-  background: #9971dd;
-  color: #cfbbed;
+  background: var(--primary-alt);
+  color: #ffffff8f;
   padding: 4px 8px;
   border-radius: 24px;
   text-align: center;
@@ -389,7 +392,7 @@ body {
 }
 
 .history-category-byline {
-  color: #cfbbed;
+  color: #ffffff8f;
   font-size: 13px;
 }
 
@@ -424,7 +427,7 @@ body {
   gap: 2px 8px;
 
   font-size: 13px;
-  color: #cfbbed;
+  color: #ffffff8f;
 }
 
 .history-group-costs span {
@@ -434,13 +437,13 @@ body {
 
 .history-category-name {
   font-size: 17px;
-  /* color: #cfbbed; */
+  /* color: #ffffff8f; */
   color: #ffffff;
 }
 
 .history-cost {
   font-size: 17px;
-  /* color: #cfbbed; */
+  /* color: #ffffff8f; */
   color: #ffffff;
 }
 
@@ -489,7 +492,7 @@ body {
 
 .overview-header-byline {
   margin: -4px auto 4px;
-  color: #cfbbed;
+  color: #ffffff8f;
   font-size: 19px;
 }
 
@@ -544,7 +547,7 @@ body {
   top: 0;
   left: 0;
   bottom: 0;
-  background: #9971dc;
+  background: var(--primary-alt);
   border-radius: 16px;
 
   /**
@@ -566,7 +569,7 @@ body {
 }
 
 .overview-item-byline-category {
-  color: #cfbbed;
+  color: #ffffff8f;
   font-size: 14px;
 }
 

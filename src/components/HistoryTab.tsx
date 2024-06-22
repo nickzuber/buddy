@@ -28,7 +28,7 @@ function toItem(category: Category | null): Item<Category | null> {
 
   return {
     id: uuidv4(),
-    title: stringOfCategory(category),
+    title: `${emojiOfCategory(category)} ${stringOfCategory(category)}`,
     value: category,
   }
 }

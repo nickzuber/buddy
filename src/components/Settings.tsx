@@ -23,13 +23,7 @@ interface SettingsTabProps {
 }
 
 export function SettingsTab({ selectedTheme, setTheme }: SettingsTabProps) {
-  const {
-    categories,
-    categoriesList,
-    changeCategoryMax,
-    addEntriesToCategories,
-    clearCategories,
-  } = useCategories()
+  const { categories, categoriesList, changeCategoryMax } = useCategories()
   const totalBudgetSum = sumOfRunningMonthCategoriesMax(categories)
 
   return (

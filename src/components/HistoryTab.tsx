@@ -70,16 +70,24 @@ export function HistoryTab() {
       return diff.valueOf()
     })
 
-  const entriesByMonth = allEntries.reduce((map, entry) => {
-    const key = getKeyForMonth(entry.date)
-    if (!map[key]) {
-      map[key] = []
-    }
-    map[key].push(entry)
-    return map
-  }, {} as Record<string, Array<HydratedEntry>>)
+  let totalEntriesCount = 0
+  const filteredEntriesByMonth = allEntries
+    .filter((entry) => {
+      return selectedCategory.value
+        ? entry.category === selectedCategory.value
+        : true
+    })
+    .reduce((map, entry) => {
+      const key = getKeyForMonth(entry.date)
+      if (!map[key]) {
+        map[key] = []
+      }
+      totalEntriesCount++
+      map[key].push(entry)
+      return map
+    }, {} as Record<string, Array<HydratedEntry>>)
 
-  const sortedDateKeys = Object.keys(entriesByMonth).sort(
+  const sortedDateKeys = Object.keys(filteredEntriesByMonth).sort(
     (a, b) => Number(b) - Number(a)
   )
 
@@ -97,22 +105,25 @@ export function HistoryTab() {
         }}
       />
 
+      {totalEntriesCount === 0 ? (
+        <div className="history-group">
+          <span className="history-category-empty-results">
+            {"There's nothing to show :)"}
+          </span>
+        </div>
+      ) : null}
+
       {sortedDateKeys.map((key) => {
-        const entries = entriesByMonth[key]
-        const filteredEntries = entries.filter((entry) => {
-          return selectedCategory.value
-            ? entry.category === selectedCategory.value
-            : true
-        })
+        const entries = filteredEntriesByMonth[key]
 
         const date = entries[0].date
         const currentMonthIndex = date.get("month")
 
-        const sum = sumOfEntries(filteredEntries, currentMonthIndex)
+        const sum = sumOfEntries(entries, currentMonthIndex)
 
         const costsFormatted = formatCurrency(sum)
 
-        const entriesByDay = filteredEntries.reduce((map, entry) => {
+        const entriesByDay = entries.reduce((map, entry) => {
           const key = getKeyForDay(entry.date)
           if (!map[key]) {
             map[key] = []
@@ -124,10 +135,6 @@ export function HistoryTab() {
         const sortedDateKeysInner = Object.keys(entriesByDay).sort(
           (a, b) => Number(b) - Number(a)
         )
-
-        if (filteredEntries.length === 0) {
-          return null
-        }
 
         return (
           <div key={key} className="history-group">

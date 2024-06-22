@@ -481,13 +481,18 @@ body {
 
 .history-category-name {
   font-size: 17px;
-  /* color: #ffffff8f; */
   color: #ffffff;
+}
+
+.history-category-empty-results {
+  font-size: 17px;
+  color: #ffffff8f;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .history-cost {
   font-size: 17px;
-  /* color: #ffffff8f; */
   color: #ffffff;
 }
 

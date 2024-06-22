@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import {
   formatCurrency,
   makeEntry,
-  remainingsumOfRunningMonthCategoriesMax,
+  remainingSumOfRunningMonthCategoriesMax,
 } from "../helpers/core"
 import { useCategories } from "../hooks/useCategories"
 import { Category } from "../types/core"
@@ -18,7 +18,7 @@ export function EntryTab() {
   >()
 
   const currentMonthIndex = DateTime.now().get("month")
-  const budget = remainingsumOfRunningMonthCategoriesMax(
+  const budget = remainingSumOfRunningMonthCategoriesMax(
     categories,
     currentMonthIndex
   )

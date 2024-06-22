@@ -12,7 +12,11 @@ import { SettingsTab } from "./Settings"
 // If we just set the overflow to always be scroll, this will give Safari
 // that annoying "bouncy scroll" behavior even when there is no scrollable
 // content.
-const TABS_THAT_SCROLL_VERTICALLY: Array<Tab> = [Tab.History, Tab.Overview]
+const TABS_THAT_SCROLL_VERTICALLY: Array<Tab> = [
+  Tab.History,
+  Tab.Overview,
+  Tab.Settings,
+]
 
 function App() {
   const { tab, setTab } = useNavigation()

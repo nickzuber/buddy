@@ -125,6 +125,19 @@ export function stringOfTab(tab: Tab): string {
   }
 }
 
+export function emojiOfTheme(theme: SupportedTheme): string {
+  switch (theme) {
+    case SupportedTheme.Purple:
+      return "🟣"
+    case SupportedTheme.Green:
+      return "🟢"
+    case SupportedTheme.Orange:
+      return "🟠"
+    case SupportedTheme.Red:
+      return "🔴"
+  }
+}
+
 export function stringOfTheme(theme: SupportedTheme): string {
   switch (theme) {
     case SupportedTheme.Purple:
@@ -383,7 +396,7 @@ export function sumOfRunningMonthCategoriesMax(
   return Object.values(rmc).reduce((sum, rmv) => sum + rmv.max, 0)
 }
 
-export function remainingsumOfRunningMonthCategoriesMax(
+export function remainingSumOfRunningMonthCategoriesMax(
   rmc: RunningMonthCategories,
   monthIndex: number
 ): number {

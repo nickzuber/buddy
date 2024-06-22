@@ -1,6 +1,7 @@
 import { DateTime } from "luxon"
 import {
   emojiOfCategory,
+  formatCurrency,
   nodeIdOfCategory,
   stringOfCategory,
   sumOfEntries,
@@ -81,12 +82,7 @@ export function CategorySelector({
       {categoriesList.map(({ category, val }) => {
         const sum = sumOfEntries(val.entries, currentMonthIndex)
         const remaining = val.max - sum
-        const remainingFormatted = new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        })
-          .format(remaining)
-          .split(".")[0]
+        const remainingFormatted = formatCurrency(remaining)
 
         const nonSelectedClassName = selectedCategory
           ? selectedCategory !== category

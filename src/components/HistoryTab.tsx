@@ -21,7 +21,7 @@ function toItem(category: Category | null): Item<Category | null> {
   if (!category) {
     return {
       id: uuidv4(),
-      title: "Everything",
+      title: "Everything", //　<-- whitespace unicode
       value: null,
     }
   }
@@ -102,19 +102,19 @@ export function HistoryTab() {
 
       {sortedDateKeys.map((key) => {
         const entries = entriesByMonth[key]
-        const date = entries[0].date
-        const currentMonthIndex = date.get("month")
-
-        const sum = sumOfEntries(entries, currentMonthIndex)
-
-        const maxFormatted = formatCurrency(max)
-        const costsFormatted = formatCurrency(sum)
-
         const filteredEntries = entries.filter((entry) => {
           return selectedCategory.value
             ? entry.category === selectedCategory.value
             : true
         })
+
+        const date = entries[0].date
+        const currentMonthIndex = date.get("month")
+
+        const sum = sumOfEntries(filteredEntries, currentMonthIndex)
+
+        const maxFormatted = formatCurrency(max)
+        const costsFormatted = formatCurrency(sum)
 
         const entriesByDay = filteredEntries.reduce((map, entry) => {
           const key = getKeyForDay(entry.date)

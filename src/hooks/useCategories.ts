@@ -82,6 +82,21 @@ export function useCategories() {
     })
   }
 
+  function addEntriesToCategories(pairs: Array<[Category, Entry]>): void {
+    let updatedCategories = { ...categories }
+    for (const item of pairs) {
+      const [category, entry] = item
+      updatedCategories = {
+        ...updatedCategories,
+        [category]: {
+          ...updatedCategories[category],
+          entries: [entry, ...updatedCategories[category].entries],
+        },
+      }
+    }
+    setCategories(updatedCategories)
+  }
+
   function editEntryFromCategory(
     category: Category,
     id: string,
@@ -261,6 +276,7 @@ export function useCategories() {
     categoriesList,
     changeCategoryMax,
     addEntryToCategory,
+    addEntriesToCategories,
     editEntryFromCategory,
     removeEntryFromCategory,
     clearEntriesFromCategory,

@@ -7,7 +7,6 @@ import {
   stringOfCategory,
   sumOfEntries,
   sumOfRunningMonthCategoriesMax,
-  toFormattedDateTime,
 } from "../helpers/core"
 import { useCategories } from "../hooks/useCategories"
 import {
@@ -172,8 +171,7 @@ export function HistoryTab() {
                           event.stopPropagation()
                           if (openedId === entry.id) {
                             // TODO(zube): Probably should be temporary; remove behavior later.
-                            // removeEntryFromCategory(entry.category, entry.id)
-                            alert(toFormattedDateTime(entry.date))
+                            removeEntryFromCategory(entry.category, entry.id)
                             setOpenedId(undefined)
                           } else {
                             setOpenedId(entry.id)

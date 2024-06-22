@@ -163,6 +163,24 @@ body {
   outline-offset: 0px;
 }
 
+.category-emoji {
+  font-size: 28px;
+}
+
+@media (max-height: 750px) {
+  .category-emoji {
+    display: none !important;
+  }
+}
+@media (max-height: 680px) {
+  .primary-number-input-container {
+    padding: 18px 24px;
+  }
+  .primary-number-input {
+    margin-block: 0px 4px;
+  }
+}
+
 .focused-category-outline {
   outline: 3px solid var(--primary-alt);
   outline-offset: 3px;

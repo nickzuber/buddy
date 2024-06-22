@@ -101,7 +101,7 @@ export function CategorySelector({
             onClick={() => onClickCategory(category)}
             {...getTouchEventsForCategory(category)}
           >
-            <span style={{ fontSize: 28 }}>{emojiOfCategory(category)}</span>
+            <span className="category-emoji">{emojiOfCategory(category)}</span>
             <span>{stringOfCategory(category)}</span>
             <span className="category-byline">{`${remainingFormatted}`}</span>
           </div>

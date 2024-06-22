@@ -28,10 +28,7 @@ export function PrimaryCostInput({ cost, setCost }: PrimaryCostInputProps) {
         {...touchEvents}
       >
         <span className="text-color-secondary"></span>
-        <span
-          // key={Math.random()}
-          className="primary-number-input big-text-primary"
-        >
+        <span className="primary-number-input big-text-primary">
           {"$"}
           {parts.map((char, idx) => {
             return (

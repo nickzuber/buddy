@@ -8,7 +8,9 @@ import {
   Month,
   MonthYearTimestamp,
   RunningMonthCategories,
+  SupportedTheme,
   Tab,
+  ThemeProvider,
 } from "../types/core"
 
 export function stringOfMonth(month: Month): string {
@@ -108,7 +110,7 @@ export function colorOfCategory(category: Category): string {
   }
 }
 
-export function stringOfTab(tab: Tab): React.ReactNode {
+export function stringOfTab(tab: Tab): string {
   switch (tab) {
     case Tab.Entry:
       return "Entry"
@@ -120,6 +122,19 @@ export function stringOfTab(tab: Tab): React.ReactNode {
       return "History"
     case Tab.Settings:
       return "Settings"
+  }
+}
+
+export function stringOfTheme(theme: SupportedTheme): string {
+  switch (theme) {
+    case SupportedTheme.Purple:
+      return "Purple"
+    case SupportedTheme.Green:
+      return "Green"
+    case SupportedTheme.Orange:
+      return "Orange"
+    case SupportedTheme.Red:
+      return "Red"
   }
 }
 
@@ -431,4 +446,12 @@ export function formatCurrency(n: number, showCents = false): string {
   }).format(n)
 
   return showCents ? f : f.split(".")[0]
+}
+
+export function getThemeGlobalVariables(theme: SupportedTheme) {
+  return {
+    "--primary": ThemeProvider[theme].primary,
+    "--primary-alt": ThemeProvider[theme].primaryAlt,
+    "--footer-background": ThemeProvider[theme].footerBackground,
+  }
 }

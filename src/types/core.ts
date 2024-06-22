@@ -5,6 +5,7 @@ export enum PersistedState {
   Navigation = "navigation",
   HistoryLedger = "history-ledger",
   RunningMonthCategories = "running-month-categories",
+  Theme = "theme",
 }
 
 export type FormattedDateTime = string & { _opaque: true }
@@ -84,3 +85,39 @@ export type HydratedEntry = Entry & {
   max: number
   category: Category
 }
+
+export type Theme = {
+  primary: string
+  primaryAlt: string
+  footerBackground: string
+}
+
+export enum SupportedTheme {
+  Purple = "purple",
+  Green = "green",
+  Orange = "orange",
+  Red = "Red",
+}
+
+export const ThemeProvider: Record<SupportedTheme, Theme> = {
+  [SupportedTheme.Purple]: {
+    primary: "#a97cf0",
+    primaryAlt: "#9971dc",
+    footerBackground: "#352e4f",
+  },
+  [SupportedTheme.Green]: {
+    primary: "#31C023",
+    primaryAlt: "#27ac1b",
+    footerBackground: "#284932",
+  },
+  [SupportedTheme.Orange]: {
+    primary: "#F28D27",
+    primaryAlt: "#DC8123",
+    footerBackground: "#443022",
+  },
+  [SupportedTheme.Red]: {
+    primary: "#F05A4B",
+    primaryAlt: "#e34c3d",
+    footerBackground: "#3c1c1c",
+  },
+} as const

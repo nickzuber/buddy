@@ -90,9 +90,12 @@ export function CategorySelector({
             : ""
           : ""
 
+        const selectedClassName =
+          selectedCategory === category ? "focused-category-outline" : ""
+
         return (
           <div
-            className={`primary-category-item ${nonSelectedClassName}`}
+            className={`primary-category-item ${nonSelectedClassName} ${selectedClassName}`}
             id={nodeIdOfCategory(category)}
             key={category}
             onClick={() => onClickCategory(category)}

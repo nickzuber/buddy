@@ -158,6 +158,14 @@ body {
 
   background: var(--primary-alt);
   color: #ffffff;
+
+  outline: 3px solid #ffffff00;
+  outline-offset: 0px;
+}
+
+.focused-category-outline {
+  outline: 3px solid var(--primary-alt);
+  outline-offset: 3px;
 }
 
 .primary-category-item span {
@@ -186,13 +194,14 @@ body {
   color: #1b1524;
   border: 0;
 
-  /* box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 15px -3px,
-    rgba(0, 0, 0, 0.025) 0px 4px 6px -2px; */
-
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+
+  transition: all 200ms ease-in-out;
+  outline: 2px solid #ffffff00;
+  outline-offset: 0px;
 }
 .primary-button:active {
   transition: all 75ms ease-in-out;
@@ -677,6 +686,11 @@ body {
 .settings-item-byline {
   color: #ffffff8f;
   font-size: 19px;
+}
+
+.focused-outline {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
 }
 
 /**

@@ -97,7 +97,7 @@ export function useTilt(args: {
 
     // Apply the tilt with an animation.
     elem.style.transitionDuration = `${ANIMATION_SPEED}ms`
-    elem.style.transitionProperty = "transform, opacity"
+    elem.style.transitionProperty = "all"
     elem.style.transform = `scale(${SCALE_RATIO}) perspective(${PERSPECTIVE_PX}px) rotate3d(${-ry}, ${rx}, 0, ${angle}deg)`
     elem.style.opacity = "0.95"
 

@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import { v4 } from "uuid"
 import { formatCurrency } from "../helpers/core"
 
@@ -8,10 +8,14 @@ export interface NumberInputButtonProps {
 }
 
 export function NumberInputButton({ value, setValue }: NumberInputButtonProps) {
-  const nodeId = useMemo(() => `uuid-${v4()}`, [])
+  const inputNodeId = useMemo(() => `uuid-${v4()}`, [])
+
+  const [active, setActive] = useState(false)
 
   function focusLocalInput() {
-    const elem = document.querySelector(`#${nodeId}`) as HTMLInputElement | null
+    const elem = document.querySelector(
+      `#${inputNodeId}`
+    ) as HTMLInputElement | null
 
     if (!elem) return
 
@@ -30,17 +34,21 @@ export function NumberInputButton({ value, setValue }: NumberInputButtonProps) {
   return (
     <div style={{ height: 37 }}>
       <button
-        className="primary-button settings-button button-fit-size"
+        className={`primary-button settings-button button-fit-size ${
+          active ? "focused-outline" : ""
+        }`}
         onClick={focusLocalInput}
       >
         <span>{`${formatCurrency(value)}`}</span>
       </button>
       <input
-        id={nodeId}
+        id={inputNodeId}
         className="hidden-input"
         autoComplete="off"
         type="tel"
         value={value}
+        onFocus={() => setActive(true)}
+        onBlur={() => setActive(false)}
         onChange={(event) => {
           const nextNum = Number(event.target.value ?? 0)
           if (!isNaN(nextNum)) {

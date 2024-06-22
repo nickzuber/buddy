@@ -146,6 +146,10 @@ export function SettingsTab({ selectedTheme, setTheme }: SettingsTabProps) {
                   Category.Restaurants,
                   makeEntryFromDate(8, f("2024-06-22T15:31")),
                 ],
+                [
+                  Category.Groceries,
+                  makeEntryFromDate(63, f("2024-06-22T16:54")),
+                ],
               ]
 
               const confirmed = window.confirm(

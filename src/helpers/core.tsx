@@ -418,6 +418,17 @@ export function makeEntry(cost: number, memo?: string): Entry {
   }
 }
 
+export function makeEntryFromDate(
+  cost: number,
+  date: FormattedDateTime
+): Entry {
+  return {
+    id: uuidv4(),
+    date,
+    cost,
+  }
+}
+
 export function getDaysRemainingInMonth() {
   const now = new Date()
   const totalDaysInMonth = new Date(

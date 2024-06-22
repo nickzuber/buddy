@@ -77,6 +77,22 @@ export function SettingsTab({ selectedTheme, setTheme }: SettingsTabProps) {
           })}
         </div>
       </div>
+
+      {/** Testing */}
+      <div className="history-group">
+        <div className="history-group-title">{"Testing"}</div>
+
+        <div className="settings-group-grid">
+          <button
+            className="primary-button settings-button"
+            onClick={() => {
+              console.info("testing")
+            }}
+          >
+            {"Copy over entries"}
+          </button>
+        </div>
+      </div>
     </div>
   )
 }

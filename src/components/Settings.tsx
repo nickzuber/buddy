@@ -7,7 +7,7 @@ import {
   sumOfRunningMonthCategoriesMax,
 } from "../helpers/core"
 import { useCategories } from "../hooks/useCategories"
-import { FormattedDateTime, SupportedTheme } from "../types/core"
+import { SupportedTheme } from "../types/core"
 import { NumberInputButton } from "./NumberInputButton"
 
 const AvailableThemes: Array<SupportedTheme> = [
@@ -156,6 +156,6 @@ export function SettingsTab({ selectedTheme, setTheme }: SettingsTabProps) {
   )
 }
 
-function f(s: string) {
-  return s as FormattedDateTime
-}
+// function f(s: string) {
+//   return s as FormattedDateTime
+// }

@@ -195,7 +195,7 @@ export function HistoryTab() {
                               {emojiOfCategory(entry.category)}
                             </span>
                             <span className="history-category-byline">
-                              {date.toFormat("h:mm a")}
+                              {entry.date.toFormat("h:mm a")}
                             </span>
                           </div>
                         </div>

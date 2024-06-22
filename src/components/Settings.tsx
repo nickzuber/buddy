@@ -2,18 +2,12 @@ import {
   emojiOfCategory,
   emojiOfTheme,
   formatCurrency,
-  makeEntryFromDate,
   stringOfCategory,
   stringOfTheme,
   sumOfRunningMonthCategoriesMax,
 } from "../helpers/core"
 import { useCategories } from "../hooks/useCategories"
-import {
-  Category,
-  Entry,
-  FormattedDateTime,
-  SupportedTheme,
-} from "../types/core"
+import { FormattedDateTime, SupportedTheme } from "../types/core"
 import { NumberInputButton } from "./NumberInputButton"
 
 const AvailableThemes: Array<SupportedTheme> = [
@@ -90,7 +84,7 @@ export function SettingsTab({ selectedTheme, setTheme }: SettingsTabProps) {
         </div>
       </div>
 
-      {/** Danger */}
+      {/** Testing
       <div className="history-group">
         <div className="history-group-title">{"Danger"}</div>
 
@@ -111,7 +105,6 @@ export function SettingsTab({ selectedTheme, setTheme }: SettingsTabProps) {
         </div>
       </div>
 
-      {/** Testing */}
       <div className="history-group">
         <div className="history-group-title">{"Testing"}</div>
 
@@ -164,6 +157,7 @@ export function SettingsTab({ selectedTheme, setTheme }: SettingsTabProps) {
           </button>
         </div>
       </div>
+      */}
     </div>
   )
 }

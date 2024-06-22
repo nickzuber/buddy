@@ -94,6 +94,10 @@ export function HistoryTab() {
         selectedItem={selectedCategory}
         items={CATEGORY_ITEMS}
         onChange={(item: Item<Category | null>) => setSelectedCategory(item)}
+        style={{
+          width: "100%",
+          boxSizing: "border-box",
+        }}
       />
 
       {sortedDateKeys.map((key) => {

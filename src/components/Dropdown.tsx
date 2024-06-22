@@ -8,17 +8,23 @@ export interface DropdownProps<T> {
   selectedItem: Item<T>
   items: Array<Item<T>>
   onChange: (item: Item<T>) => void
+  style?: React.CSSProperties
 }
 
 export function Dropdown<T>({
   selectedItem,
   items,
   onChange,
+  style,
 }: DropdownProps<T>) {
   return (
-    <div className="secondary-rounded-container dropdown-core-outer">
+    <div
+      className="secondary-rounded-container dropdown-core-outer"
+      style={style}
+    >
       <select
         className="secondary-rounded-container dropdown-core"
+        style={style}
         onChange={(event) => {
           const newlySelectedId = event.target.value
           const newlySelectedItem = items.find(
@@ -43,30 +49,4 @@ export function Dropdown<T>({
       </select>
     </div>
   )
-
-  // return (
-  //   <div
-  //     className="secondary-rounded-container dropdown-core"
-  //     onClick={() => setOpen(true)}
-  //   >
-  //     {selectedItem.title}
-  //     <svg
-  //       width="22px"
-  //       height="22px"
-  //       strokeWidth="3"
-  //       viewBox="0 0 24 24"
-  //       fill="none"
-  //       xmlns="http://www.w3.org/2000/svg"
-  //       color="currentColor"
-  //     >
-  //       <path
-  //         d="M6 9L12 15L18 9"
-  //         stroke="currentColor"
-  //         strokeWidth="3"
-  //         strokeLinecap="round"
-  //         strokeLinejoin="round"
-  //       ></path>
-  //     </svg>
-  //   </div>
-  // )
 }

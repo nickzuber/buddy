@@ -65,8 +65,8 @@ export function HistoryTab() {
 
         const sum = sumOfEntries(entries, currentMonthIndex)
 
-        const maxFormatted = formatCurrency(max, true) //.split("$")[1]
-        const costsFormatted = formatCurrency(sum, true) //.split("$")[1]
+        const maxFormatted = formatCurrency(max) //.split("$")[1]
+        const costsFormatted = formatCurrency(sum) //.split("$")[1]
 
         const entriesByDay = entries.reduce((map, entry) => {
           const key = getKeyForDay(entry.date)
@@ -85,10 +85,13 @@ export function HistoryTab() {
           <div key={key} className="history-group">
             <div className="history-group-title-container">
               <div className="history-group-title">{date.toFormat("LLLL")}</div>
-              <div className="history-group-costs">
+              {/* <div className="history-group-costs">
                 <span>{`+`}</span>
                 <span>{`${maxFormatted}`}</span>
                 <span>{`–`}</span>
+                <span>{`${costsFormatted}`}</span>
+              </div> */}
+              <div className="history-group-costs-large">
                 <span>{`${costsFormatted}`}</span>
               </div>
             </div>

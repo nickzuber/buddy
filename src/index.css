@@ -347,7 +347,7 @@ body {
 }
 
 .history-group-title {
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .history-group-title-container {
@@ -442,6 +442,11 @@ body {
   color: #ffffff8f;
 }
 
+.history-group-costs-large {
+  font-size: 16px;
+  color: #ffffff8f;
+}
+
 .history-group-costs span {
   text-align: right;
   font-variant: tabular-nums;
@@ -464,7 +469,7 @@ body {
  */
 
 .dropdown-core-outer {
-  margin: 8px auto 24px;
+  margin: 2px auto 12px;
   gap: 6px;
   padding: 5px 18px;
   background: #ffffff;
@@ -498,14 +503,27 @@ body {
 }
 
 .overview-header {
-  margin: 12px auto 0;
+  margin: 0px auto 0;
   color: #ffffff;
 }
 
 .overview-header-byline {
-  margin: -4px auto 4px;
+  margin: -4px auto 0px;
+  font-size: 17px;
   color: #ffffff8f;
-  font-size: 19px;
+
+  background: var(--primary-alt);
+  padding: 10px 18px;
+  border-radius: 32px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+.overview-header-byline svg {
+  transform: scale(0.95);
 }
 
 .overview-items-container {

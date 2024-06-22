@@ -6,7 +6,6 @@ import {
   fromFormattedDateTime,
   stringOfCategory,
   sumOfEntries,
-  sumOfRunningMonthCategoriesMax,
 } from "../helpers/core"
 import { useCategories } from "../hooks/useCategories"
 import {
@@ -50,8 +49,6 @@ export function HistoryTab() {
   const [selectedCategory, setSelectedCategory] = useState<
     Item<Category | null>
   >(CATEGORY_ITEMS[0])
-
-  const max = sumOfRunningMonthCategoriesMax(categories)
 
   const allEntries = Object.entries(categories)
     .map(([cat, rmv]) =>
@@ -113,7 +110,6 @@ export function HistoryTab() {
 
         const sum = sumOfEntries(filteredEntries, currentMonthIndex)
 
-        const maxFormatted = formatCurrency(max)
         const costsFormatted = formatCurrency(sum)
 
         const entriesByDay = filteredEntries.reduce((map, entry) => {

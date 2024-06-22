@@ -211,11 +211,11 @@ export function OverviewTab() {
                   <span style={{ opacity: 0, fontSize: 26, lineHeight: 0 }}>
                     {emojiOfCategory(category)}
                   </span>
-                  <span>{`${formatCurrency(remaining)} of ${formatCurrency(
+                  <span>{`${formattedExpensesRatio}% of ${formatCurrency(
                     max
                   )}`}</span>
                 </span>
-                <span>{`${formattedExpensesRatio}%`}</span>
+                <span>{`${formatCurrency(remaining)} left over`}</span>
               </div>
             </div>
           )

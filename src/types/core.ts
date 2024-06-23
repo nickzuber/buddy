@@ -90,13 +90,15 @@ export type Theme = {
   primary: string
   primaryAlt: string
   footerBackground: string
-}
+} & { [key: string]: string } // support generic keys tbh why not
 
 export enum SupportedTheme {
   Purple = "purple",
   Green = "green",
   Orange = "orange",
-  Red = "Red",
+  Red = "red",
+  Blue = "blue",
+  Black = "black",
 }
 
 export const ThemeProvider: Record<SupportedTheme, Theme> = {
@@ -119,5 +121,20 @@ export const ThemeProvider: Record<SupportedTheme, Theme> = {
     primary: "#F05A4B",
     primaryAlt: "#e34c3d",
     footerBackground: "#3c1c1c",
+  },
+  [SupportedTheme.Blue]: {
+    primary: "#319AFB",
+    primaryAlt: "#2282da",
+    footerBackground: "#1a1c20",
+  },
+  [SupportedTheme.Black]: {
+    primary: "#141414",
+    primaryAlt: "#282626",
+    footerBackground: "#282626",
+    // Optional custom styles
+    primaryBackground: "#282626",
+    primaryText: "#ffffff",
+    secondaryText: "#ffffff",
+    secondaryTextAlt: "#ffffff44",
   },
 } as const

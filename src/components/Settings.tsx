@@ -16,6 +16,8 @@ const AvailableThemes: Array<SupportedTheme> = [
   SupportedTheme.Green,
   SupportedTheme.Orange,
   SupportedTheme.Red,
+  SupportedTheme.Blue,
+  SupportedTheme.Black,
 ]
 
 interface SettingsTabProps {

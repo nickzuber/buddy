@@ -135,6 +135,10 @@ export function emojiOfTheme(theme: SupportedTheme): string {
       return "🟠"
     case SupportedTheme.Red:
       return "🔴"
+    case SupportedTheme.Blue:
+      return "🔵"
+    case SupportedTheme.Black:
+      return "⚫"
   }
 }
 
@@ -148,6 +152,10 @@ export function stringOfTheme(theme: SupportedTheme): string {
       return "Orange"
     case SupportedTheme.Red:
       return "Red"
+    case SupportedTheme.Blue:
+      return "Blue"
+    case SupportedTheme.Black:
+      return "Black"
   }
 }
 
@@ -473,9 +481,22 @@ export function formatCurrency(n: number, showCents = false): string {
 }
 
 export function getThemeGlobalVariables(theme: SupportedTheme) {
-  return {
-    "--primary": ThemeProvider[theme].primary,
-    "--primary-alt": ThemeProvider[theme].primaryAlt,
-    "--footer-background": ThemeProvider[theme].footerBackground,
+  const selectedTheme = ThemeProvider[theme]
+  if (!selectedTheme) {
+    return {}
   }
+
+  const keys = Object.keys(selectedTheme)
+  const obj: Record<string, string> = {}
+  for (const key of keys) {
+    const variableKey = `--${camelCaseToKebabCase(key)}`
+    obj[variableKey] = selectedTheme[key]
+  }
+  console.info(obj)
+  return obj
+}
+
+function camelCaseToKebabCase(key: string): string {
+  var result = key.replace(/([A-Z])/g, " $1")
+  return result.split(" ").join("-").toLowerCase()
 }

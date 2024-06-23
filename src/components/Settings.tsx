@@ -1,3 +1,4 @@
+import { useRef, useState } from "react"
 import {
   emojiOfCategory,
   emojiOfTheme,
@@ -23,12 +24,53 @@ interface SettingsTabProps {
 }
 
 export function SettingsTab({ selectedTheme, setTheme }: SettingsTabProps) {
-  const { categories, categoriesList, changeCategoryMax } = useCategories()
+  const { categories, categoriesList, changeCategoryMax, clearCategories } =
+    useCategories()
   const totalBudgetSum = sumOfRunningMonthCategoriesMax(categories)
+  const [showHiddenCategories, setShowHiddenCategories] = useState(false)
+
+  const counterRef = useRef(0)
+  const timerRef = useRef<any>()
 
   return (
     <div className="tab-container">
-      <div className="tab-header-container">{"Settings"}</div>
+      <div
+        className="tab-header-container"
+        onClick={() => {
+          if (counterRef.current++ >= 4) {
+            setShowHiddenCategories(true)
+          }
+          clearTimeout(timerRef.current)
+          timerRef.current = setTimeout(() => {
+            counterRef.current = 0
+          }, 500)
+        }}
+      >
+        {"Settings"}
+      </div>
+
+      {/** Testing */}
+      {showHiddenCategories ? (
+        <div className="history-group pop-press">
+          <div className="history-group-title">{"Testing"}</div>
+
+          <div className="settings-group-grid">
+            <button
+              className="primary-button settings-button fit-content"
+              onClick={() => {
+                const confirmed = window.confirm(
+                  "Delete all entries you've ever tracked? There's no going back!"
+                )
+                if (confirmed) {
+                  clearCategories()
+                }
+              }}
+            >
+              {"Reset everything"}
+            </button>
+          </div>
+        </div>
+      ) : null}
 
       {/** Defaults */}
       <div className="history-group">
@@ -79,25 +121,6 @@ export function SettingsTab({ selectedTheme, setTheme }: SettingsTabProps) {
       </div>
 
       {/** Testing
-      <div className="history-group">
-        <div className="history-group-title">{"Danger"}</div>
-
-        <div className="settings-group-grid">
-          <button
-            className="primary-button settings-button"
-            onClick={() => {
-              const confirmed = window.confirm(
-                "Delete all entries you've ever tracked? There's no going back!"
-              )
-              if (confirmed) {
-                clearCategories()
-              }
-            }}
-          >
-            {"Delete all entries"}
-          </button>
-        </div>
-      </div>
 
       <div className="history-group">
         <div className="history-group-title">{"Testing"}</div>

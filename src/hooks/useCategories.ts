@@ -24,7 +24,7 @@ const useHistoryState = createState<HistoryLedger>(PersistedState.HistoryLedger)
 const initialCategories: RunningMonthCategories = {
   [Category.Groceries]: {
     entries: [],
-    max: 400,
+    max: 100,
   },
   [Category.Transport]: {
     entries: [],
@@ -32,19 +32,19 @@ const initialCategories: RunningMonthCategories = {
   },
   [Category.Clothes]: {
     entries: [],
-    max: 150,
+    max: 100,
   },
   [Category.Restaurants]: {
     entries: [],
-    max: 400,
+    max: 100,
   },
   [Category.Fun]: {
     entries: [],
-    max: 400,
+    max: 100,
   },
   [Category.Other]: {
     entries: [],
-    max: 300,
+    max: 100,
   },
 }
 

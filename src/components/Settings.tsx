@@ -43,7 +43,7 @@ export function SettingsTab({ selectedTheme, setTheme }: SettingsTabProps) {
           clearTimeout(timerRef.current)
           timerRef.current = setTimeout(() => {
             counterRef.current = 0
-          }, 500)
+          }, 1000)
         }}
       >
         {"Settings"}

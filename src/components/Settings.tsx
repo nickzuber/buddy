@@ -54,20 +54,23 @@ export function SettingsTab({ selectedTheme, setTheme }: SettingsTabProps) {
         <div className="history-group pop-press">
           <div className="history-group-title">{"Testing"}</div>
 
-          <div className="settings-group-grid">
-            <button
-              className="primary-button settings-button fit-content"
-              onClick={() => {
-                const confirmed = window.confirm(
-                  "Delete all entries you've ever tracked? There's no going back!"
-                )
-                if (confirmed) {
-                  clearCategories()
-                }
-              }}
-            >
-              {"Reset everything"}
-            </button>
+          <div className="settings-group">
+            <div className="settings-group-long-item">
+              <span>{"All data"}</span>
+              <button
+                className="primary-button settings-button fit-content"
+                onClick={() => {
+                  const confirmed = window.confirm(
+                    "Delete all entries you've ever tracked? There's no going back!"
+                  )
+                  if (confirmed) {
+                    clearCategories()
+                  }
+                }}
+              >
+                {"Reset"}
+              </button>
+            </div>
           </div>
         </div>
       ) : null}

@@ -418,7 +418,7 @@ body {
   right: 0;
   top: calc(22.5px / 2);
   height: 1px;
-  background: #cfbbee4f;
+  background: var(--primary);
   width: 100%;
 }
 

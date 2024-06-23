@@ -28,6 +28,10 @@ function App() {
     const elem = document.querySelector("meta[name='theme-color']")
     if (!elem) return
     elem.setAttribute("content", selectedThemeProvider.primary)
+
+    const bodyElem = document.querySelector("body")
+    if (!bodyElem) return
+    bodyElem.style.background = selectedThemeProvider.primary
   }, [selectedThemeProvider])
 
   function renderContent() {
@@ -47,7 +51,7 @@ function App() {
 
   return (
     <div
-      className="primary-container"
+      className="primary-container bounding-styles"
       style={{
         ...getThemeGlobalVariables(selectedTheme),
         overflowY: TABS_THAT_SCROLL_VERTICALLY.includes(tab)

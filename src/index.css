@@ -45,6 +45,8 @@ body {
 
   /* Prevents the Safari webpage swiping. */
   touch-action: none;
+
+  transition: background 400ms ease-in-out;
 }
 
 * {
@@ -56,6 +58,11 @@ body {
   --primary-text: #ffffff;
   --secondary-text: #1b1524;
   --secondary-text-alt: #1b152444;
+}
+
+.bounding-styles {
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .primary-container {
@@ -79,7 +86,6 @@ body {
   font-family: "SF Pro Rounded Heavy", "SF Pro Rounded Heavy Placeholder",
     "-apple-system", "BlinkMacSystemFont", sans-serif;
   font-size: 64px;
-  /* color: #1b1524; */
   color: var(--secondary-text);
 }
 
@@ -235,13 +241,38 @@ body {
   color: #ffffff;
 
   transition: background 400ms ease-in-out;
-
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0px;
 
   padding-bottom: 18px;
   z-index: 3;
+}
+
+.primary-footer-outer {
+  background: var(--footer-background);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 78px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px -1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 0px 8px;
+  color: #ffffff;
+
+  transition: background 400ms ease-in-out;
+
+  padding-bottom: 18px;
+  z-index: 3;
+}
+
+.primary-footer-inner {
+  height: 78px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0px;
 }
 
 .primary-footer-item {

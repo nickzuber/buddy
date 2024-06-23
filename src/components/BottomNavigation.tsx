@@ -17,26 +17,28 @@ export function BottomNavigation({ activeTab, setTab }: BottomNavigationProps) {
   ]
 
   return (
-    <div
-      className="primary-footer"
-      style={{
-        gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))`,
-      }}
-    >
-      {tabs.map((tab) => {
-        return (
-          <div
-            key={tab}
-            className={`primary-footer-item ${
-              tab === activeTab ? "primary-footer-item-active" : ""
-            }`}
-            onClick={() => setTab(tab)}
-          >
-            {iconOfTab(tab)}
-            {stringOfTab(tab)}
-          </div>
-        )
-      })}
+    <div className="primary-footer-outer">
+      <div
+        className="primary-footer-inner bounding-styles"
+        style={{
+          gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))`,
+        }}
+      >
+        {tabs.map((tab) => {
+          return (
+            <div
+              key={tab}
+              className={`primary-footer-item ${
+                tab === activeTab ? "primary-footer-item-active" : ""
+              }`}
+              onClick={() => setTab(tab)}
+            >
+              {iconOfTab(tab)}
+              {stringOfTab(tab)}
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

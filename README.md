@@ -1,5 +1,5 @@
 <img src="./public/icon.png" height="128" />
-<h1>Budgot</h1>
+<h1>Buddy</h1>
 
 <p>Really simple budgeting app.</p>
 

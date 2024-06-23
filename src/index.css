@@ -336,6 +336,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 4px;
+}
+.secondary-rounded-container svg {
+  transform: scale(0.9);
 }
 
 .category-byline {
